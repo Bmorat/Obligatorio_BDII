@@ -4,8 +4,6 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.IdClass;
-import jakarta.persistence.Inheritance;
-import jakarta.persistence.InheritanceType;
 import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
@@ -14,10 +12,9 @@ import java.io.Serializable;
 
 @Getter @Setter @ToString
 @Entity
-@Table(name = "Usuario")
-@Inheritance(strategy = InheritanceType.JOINED)
-@IdClass(Usuario.UsuarioId.class)
-public class Usuario {
+@Table(name = "Telefono")
+@IdClass(Telefono.TelefonoId.class)
+public class Telefono {
 
     @Id
     @Column(name = "PaisDoc")
@@ -31,33 +28,27 @@ public class Usuario {
     @Column(name = "NumeroDoc")
     private String numeroDoc;
 
-    @Column(name = "Correo")
-    private String correo;
+    @Id
+    @Column(name = "NumTelefono")
+    private String numTelefono;
 
-    @Column(name = "Dir_Calle")
-    private String dirCalle;
-
-    @Column(name = "Dir_Numero")
-    private String dirNumero;
-
-    @Column(name = "CodigoPostal")
-    private String codigoPostal;
-
-    public Usuario() {}
+    public Telefono() {}
 
     @Getter @Setter
     @ToString
-    public static class UsuarioId implements Serializable {
+    public static class TelefonoId implements Serializable {
         private String paisDoc;
         private String tipoDoc;
         private String numeroDoc;
+        private String numTelefono;
 
-        public UsuarioId() {}
+        public TelefonoId() {}
 
-        public UsuarioId(String paisDoc, String tipoDoc, String numeroDoc) {
+        public TelefonoId(String paisDoc, String tipoDoc, String numeroDoc, String numTelefono) {
             this.paisDoc = paisDoc;
             this.tipoDoc = tipoDoc;
             this.numeroDoc = numeroDoc;
+            this.numTelefono = numTelefono;
         }
     }
 }
