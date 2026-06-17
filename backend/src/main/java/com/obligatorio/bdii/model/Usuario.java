@@ -1,63 +1,19 @@
 package com.obligatorio.bdii.model;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.IdClass;
-import jakarta.persistence.Inheritance;
-import jakarta.persistence.InheritanceType;
-import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
-import java.io.Serializable;
 
 @Getter @Setter @ToString
-@Entity
-@Table(name = "Usuario")
-@Inheritance(strategy = InheritanceType.JOINED)
-@IdClass(Usuario.UsuarioId.class)
 public class Usuario {
 
-    @Id
-    @Column(name = "PaisDoc")
     private String paisDoc;
-
-    @Id
-    @Column(name = "TipoDoc")
     private String tipoDoc;
-
-    @Id
-    @Column(name = "NumeroDoc")
     private String numeroDoc;
-
-    @Column(name = "Correo")
     private String correo;
-
-    @Column(name = "Dir_Calle")
     private String dirCalle;
-
-    @Column(name = "Dir_Numero")
     private String dirNumero;
-
-    @Column(name = "CodigoPostal")
     private String codigoPostal;
 
     public Usuario() {}
-
-    @Getter @Setter
-    @ToString
-    public static class UsuarioId implements Serializable {
-        private String paisDoc;
-        private String tipoDoc;
-        private String numeroDoc;
-
-        public UsuarioId() {}
-
-        public UsuarioId(String paisDoc, String tipoDoc, String numeroDoc) {
-            this.paisDoc = paisDoc;
-            this.tipoDoc = tipoDoc;
-            this.numeroDoc = numeroDoc;
-        }
-    }
 }
