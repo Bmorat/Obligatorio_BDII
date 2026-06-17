@@ -32,7 +32,7 @@ Endpoint inicial:
 
 ```text
 GET /api/health
-```
+
 
 ## Frontend
 
