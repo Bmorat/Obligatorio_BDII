@@ -1,15 +1,14 @@
 package com.obligatorio.bdii.model;
+
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
 @Getter @Setter @ToString
-public class Estadio {
+public class Equipo {
 
     private Integer id;
-    private String nombre;
-    private String ubicacion;
+    private String nombreDeEquipo;
 
-    public Estadio() {}
+    public Equipo() {}
 }
->>>>>>> main
