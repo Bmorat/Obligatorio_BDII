@@ -25,7 +25,7 @@ public class EstadioController {
     }
 
     @PostMapping
-    public int crearEstadio(@RequestParam String nombre, @RequestParam int capacidad, @RequestParam String ciudad) {
-        return estadioService.insertarEstadio(nombre, capacidad, ciudad);
+    public int crearEstadio(@RequestParam String nombre, @RequestParam String ubicacion) {
+        return estadioService.insertarEstadio(nombre, ubicacion);
     }
 }
