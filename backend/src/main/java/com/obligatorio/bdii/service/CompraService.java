@@ -12,7 +12,8 @@ import org.springframework.jdbc.support.KeyHolder;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.Statement;
-
+import java.util.List;
+import com.obligatorio.bdii.model.Compra;
 import com.obligatorio.bdii.dto.CompraRequest;
 import org.springframework.stereotype.Service;
 
@@ -77,6 +78,24 @@ public class CompraService {
             
         }
         return ResponseEntity.ok("Compra realizada con exito");
+    }
+
+    public List<Compra> obtenerComprasPorUsuario(String paisDoc, String tipoDoc, String numeroDoc){
+        String sql = "SELECT id, estado, fecha, montoTotal, paisDocUsuario, tipoDocUsuario, numeroDocUsuario, idComision FROM Compra WHERE PaisDocUsuario = ? AND TipoDocUsuario = ? AND NumeroDocUsuario = ?";
+        return jdbcTemplate.query(sql,  (rs, rowNum) -> {
+            Compra c = new Compra();
+            c.setId(rs.getInt("id"));
+            c.setEstado(rs.getString("estado"));
+            c.setFecha(rs.getDate("fecha").toLocalDate());
+            c.setMontoTotal(rs.getBigDecimal("montoTotal"));
+            c.setPaisDocUsuario(rs.getString("paisDocUsuario"));
+            c.setTipoDocUsuario(rs.getString("tipoDocUsuario"));
+            c.setNumeroDocUsuario(rs.getString("numeroDocUsuario"));
+            c.setIdComision(rs.getInt("idComision"));     
+
+            return c;
+        }, paisDoc, tipoDoc, numeroDoc);
+
     }
 
 }
