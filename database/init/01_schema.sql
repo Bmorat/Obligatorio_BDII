@@ -33,6 +33,15 @@ CREATE TABLE Usuario (
     CONSTRAINT FK_Usuario_CodigoPostal FOREIGN KEY (CodigoPostal) REFERENCES CodigoPostal(Codigo)
 );
 
+CREATE TABLE CredencialUsuario (
+    PaisDoc      CHAR(3)      NOT NULL,
+    TipoDoc      VARCHAR(20)  NOT NULL,
+    NumeroDoc    VARCHAR(30)  NOT NULL,
+    PasswordHash VARCHAR(255) NOT NULL,
+    CONSTRAINT PK_CredencialUsuario PRIMARY KEY (PaisDoc, TipoDoc, NumeroDoc),
+    CONSTRAINT FK_CredencialUsuario_Usuario FOREIGN KEY (PaisDoc, TipoDoc, NumeroDoc) REFERENCES Usuario(PaisDoc, TipoDoc, NumeroDoc)
+);
+
 CREATE TABLE Telefono (
     PaisDoc     CHAR(3)     NOT NULL,
     TipoDoc     VARCHAR(20) NOT NULL,
@@ -189,3 +198,73 @@ CREATE TABLE Asignado_a (
     CONSTRAINT FK_AsignadoA_Funcionario FOREIGN KEY (PaisDocFunc, TipoDocFunc, NumeroDocFunc) REFERENCES Funcionario_Validacion(PaisDoc, TipoDoc, NumeroDoc),
     CONSTRAINT FK_AsignadoA_SeHabilita FOREIGN KEY (IdEvento, IdEstadio, Tipo) REFERENCES Se_habilita(IdEvento, IdEstadio, Tipo)
 );
+
+DELIMITER //
+
+CREATE TRIGGER TRG_UsuarioGeneral_UnicoTipo
+BEFORE INSERT ON Usuario_General
+FOR EACH ROW
+BEGIN
+    IF EXISTS (
+        SELECT 1
+        FROM Administrador_Sede
+        WHERE PaisDoc = NEW.PaisDoc
+          AND TipoDoc = NEW.TipoDoc
+          AND NumeroDoc = NEW.NumeroDoc
+    ) OR EXISTS (
+        SELECT 1
+        FROM Funcionario_Validacion
+        WHERE PaisDoc = NEW.PaisDoc
+          AND TipoDoc = NEW.TipoDoc
+          AND NumeroDoc = NEW.NumeroDoc
+    ) THEN
+        SIGNAL SQLSTATE '45000'
+            SET MESSAGE_TEXT = 'El usuario ya tiene otro tipo asignado';
+    END IF;
+END//
+
+CREATE TRIGGER TRG_AdministradorSede_UnicoTipo
+BEFORE INSERT ON Administrador_Sede
+FOR EACH ROW
+BEGIN
+    IF EXISTS (
+        SELECT 1
+        FROM Usuario_General
+        WHERE PaisDoc = NEW.PaisDoc
+          AND TipoDoc = NEW.TipoDoc
+          AND NumeroDoc = NEW.NumeroDoc
+    ) OR EXISTS (
+        SELECT 1
+        FROM Funcionario_Validacion
+        WHERE PaisDoc = NEW.PaisDoc
+          AND TipoDoc = NEW.TipoDoc
+          AND NumeroDoc = NEW.NumeroDoc
+    ) THEN
+        SIGNAL SQLSTATE '45000'
+            SET MESSAGE_TEXT = 'El usuario ya tiene otro tipo asignado';
+    END IF;
+END//
+
+CREATE TRIGGER TRG_FuncionarioValidacion_UnicoTipo
+BEFORE INSERT ON Funcionario_Validacion
+FOR EACH ROW
+BEGIN
+    IF EXISTS (
+        SELECT 1
+        FROM Usuario_General
+        WHERE PaisDoc = NEW.PaisDoc
+          AND TipoDoc = NEW.TipoDoc
+          AND NumeroDoc = NEW.NumeroDoc
+    ) OR EXISTS (
+        SELECT 1
+        FROM Administrador_Sede
+        WHERE PaisDoc = NEW.PaisDoc
+          AND TipoDoc = NEW.TipoDoc
+          AND NumeroDoc = NEW.NumeroDoc
+    ) THEN
+        SIGNAL SQLSTATE '45000'
+            SET MESSAGE_TEXT = 'El usuario ya tiene otro tipo asignado';
+    END IF;
+END//
+
+DELIMITER ;
