@@ -1,4 +1,7 @@
 package com.obligatorio.bdii.dto;
 
-public record LoginRequest() {
-} 
+public record LoginRequest(
+    String correo,
+    String password
+) {
+}

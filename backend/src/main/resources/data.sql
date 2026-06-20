@@ -44,6 +44,20 @@ INSERT IGNORE INTO Usuario (PaisDoc, TipoDoc, NumeroDoc, Correo, Dir_Calle, Dir_
 ('URY', 'CI', '90123456', 'diego.torres@email.com',      'Rambla',          '890',  '11400'),
 ('URY', 'CI', '01234567', 'valentina.herrera@email.com', 'Colonia',         '123',  '11500');
 
+-- CredencialUsuario
+-- Password de prueba para todos los usuarios: password123
+INSERT IGNORE INTO CredencialUsuario (PaisDoc, TipoDoc, NumeroDoc, PasswordHash) VALUES
+('URY', 'CI', '12345678', '$2y$10$skeckeaqfHRroPaN0exaFekI4S56H1O44ICh/rv36s.ACa8u84Rxy'),
+('URY', 'CI', '23456789', '$2y$10$skeckeaqfHRroPaN0exaFekI4S56H1O44ICh/rv36s.ACa8u84Rxy'),
+('URY', 'CI', '34567890', '$2y$10$skeckeaqfHRroPaN0exaFekI4S56H1O44ICh/rv36s.ACa8u84Rxy'),
+('URY', 'CI', '45678901', '$2y$10$skeckeaqfHRroPaN0exaFekI4S56H1O44ICh/rv36s.ACa8u84Rxy'),
+('URY', 'CI', '56789012', '$2y$10$skeckeaqfHRroPaN0exaFekI4S56H1O44ICh/rv36s.ACa8u84Rxy'),
+('URY', 'CI', '67890123', '$2y$10$skeckeaqfHRroPaN0exaFekI4S56H1O44ICh/rv36s.ACa8u84Rxy'),
+('URY', 'CI', '78901234', '$2y$10$skeckeaqfHRroPaN0exaFekI4S56H1O44ICh/rv36s.ACa8u84Rxy'),
+('URY', 'CI', '89012345', '$2y$10$skeckeaqfHRroPaN0exaFekI4S56H1O44ICh/rv36s.ACa8u84Rxy'),
+('URY', 'CI', '90123456', '$2y$10$skeckeaqfHRroPaN0exaFekI4S56H1O44ICh/rv36s.ACa8u84Rxy'),
+('URY', 'CI', '01234567', '$2y$10$skeckeaqfHRroPaN0exaFekI4S56H1O44ICh/rv36s.ACa8u84Rxy');
+
 -- Telefono
 INSERT IGNORE INTO Telefono (PaisDoc, TipoDoc, NumeroDoc, NumTelefono) VALUES
 ('URY', 'CI', '12345678', '+59891234567'),
