@@ -119,10 +119,10 @@ CREATE TABLE Se_habilita (
 );
 
 CREATE TABLE Comision (
-    IdComision INT           NOT NULL AUTO_INCREMENT,
-    Estado     VARCHAR(30)   NOT NULL,
-    Fecha      DATE          NOT NULL,
-    Porcentaje DECIMAL(5,2)  NOT NULL,
+    IdComision INT          NOT NULL AUTO_INCREMENT,
+    Vigente    BOOLEAN      NOT NULL DEFAULT FALSE,
+    Fecha      DATE         NOT NULL,
+    Porcentaje DECIMAL(5,2) NOT NULL,
     CONSTRAINT PK_Comision PRIMARY KEY (IdComision)
 );
 

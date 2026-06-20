@@ -112,14 +112,11 @@ INSERT IGNORE INTO Se_habilita (IdEvento, IdEstadio, Tipo, Precio, CapacidadHabi
 (5, 2, 'Tribuna', 600.00,  8000),
 (5, 2, 'Platea',  1500.00, 4000);
 
--- Comision
-INSERT IGNORE INTO Comision (IdComision, Estado, Fecha, Porcentaje) VALUES
-(1, 'Pendiente', '2024-06-01', 5.00),
-(2, 'Pagada',    '2024-06-15', 3.50),
-(3, 'Pendiente', '2024-07-01', 4.00),
-(4, 'Pagada',    '2024-07-15', 5.00),
-(5, 'Pendiente', '2024-07-20', 3.00),
-(6, 'Pagada',    '2024-08-01', 4.50);
+-- Comision (solo una con Vigente = true)
+INSERT IGNORE INTO Comision (IdComision, Vigente, Fecha, Porcentaje) VALUES
+(1, false, '2024-06-01', 3.50),
+(2, false, '2024-06-15', 4.00),
+(3, true,  '2024-07-01', 5.00);
 
 -- QR (necesarios antes de insertar Entrada)
 INSERT IGNORE INTO QR (IdQR) VALUES
@@ -132,9 +129,9 @@ INSERT IGNORE INTO Compra (Id, Estado, Fecha, MontoTotal, PaisDocUsuario, TipoDo
 (1, 'Completada', '2024-05-10', 1500.00, 'URY', 'CI', '12345678', 1),
 (2, 'Completada', '2024-05-12', 2400.00, 'URY', 'CI', '34567890', 2),
 (3, 'Pendiente',  '2024-05-20', 800.00,  'URY', 'CI', '12345678', 3),
-(4, 'Completada', '2024-06-01', 3200.00, 'URY', 'CI', '56789012', 4),
-(5, 'Cancelada',  '2024-06-15', 600.00,  'URY', 'CI', '78901234', 5),
-(6, 'Completada', '2024-06-20', 5000.00, 'URY', 'CI', '34567890', 6);
+(4, 'Completada', '2024-06-01', 3200.00, 'URY', 'CI', '56789012', 3),
+(5, 'Cancelada',  '2024-06-15', 600.00,  'URY', 'CI', '78901234', 3),
+(6, 'Completada', '2024-06-20', 5000.00, 'URY', 'CI', '34567890', 3);
 
 -- Entrada
 INSERT IGNORE INTO Entrada (IdEntrada, Estado, NumeroVecesTransferida, IdCompra, IdEvento, IdEstadio, Tipo, IdQR) VALUES
