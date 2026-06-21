@@ -30,17 +30,18 @@ public class EstadioController {
     public int crearEstadio(@RequestParam String nombre, @RequestParam String ubicacion) {
         return estadioService.insertarEstadio(nombre, ubicacion);
     }
-
-   @GetMapping("/{id}/eventos")
-    public List<Evento> obtenerEventosPorEstadio(@PathVariable String id) {
-        return estadioService.obtenerEventoPorEstadio(id);
-    }
-
-     @GetMapping
+     @GetMapping(params = {"paisDoc", "tipoDoc", "numeroDoc"})
     public List<Estadio> BuscarEstadioPorAdmin(
             @RequestParam String paisDoc,
             @RequestParam String tipoDoc,
             @RequestParam String numeroDoc) {
        return estadioService.BuscarEstadioPorAdmin(paisDoc, tipoDoc, numeroDoc);
     }
+
+   @GetMapping("/{id}/eventos")
+    public List<Evento> obtenerEventosPorEstadio(@PathVariable String id) {
+        return estadioService.obtenerEventoPorEstadio(id);
+    }
+
+   
 }
