@@ -33,6 +33,14 @@ public class EstadioController {
 
    @GetMapping("/{id}/eventos")
     public List<Evento> obtenerEventosPorEstadio(@PathVariable String id) {
-        return estadioService.obtenerEventosPorEstadio(id);
+        return estadioService.obtenerEventoPorEstadio(id);
+    }
+
+     @GetMapping
+    public List<Estadio> BuscarEstadioPorAdmin(
+            @RequestParam String paisDoc,
+            @RequestParam String tipoDoc,
+            @RequestParam String numeroDoc) {
+       return estadioService.BuscarEstadioPorAdmin(paisDoc, tipoDoc, numeroDoc);
     }
 }
