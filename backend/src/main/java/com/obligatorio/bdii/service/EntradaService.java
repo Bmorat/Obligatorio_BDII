@@ -17,9 +17,14 @@ public class EntradaService {
 
     public List<Entrada> obtenerEntradasPorUsuario(String paisDocUsuario, String tipoDocUsuario, String numeroDocUsuario){
         String sql = "SELECT e.IdEntrada, e.Estado, e.NumeroVecesTransferida, e.IdCompra, e.IdEvento, e.IdEstadio, e.Tipo, e.IdQR " +
-         "FROM Entrada e "+ 
-         "JOIN Compra c ON e.IdCompra = c.Id "+
-         "WHERE c.PaisDocUsuario = ? AND c.TipoDocUsuario = ? AND c.NumeroDocUsuario = ?";
+             "FROM Entrada e JOIN Compra c ON e.IdCompra = c.Id " +
+             "WHERE c.PaisDocUsuario = ? AND c.TipoDocUsuario = ? AND c.NumeroDocUsuario = ? " +
+             "AND e.Estado != 'Transferida' " +
+             "UNION " +
+             "SELECT e.IdEntrada, e.Estado, e.NumeroVecesTransferida, e.IdCompra, e.IdEvento, e.IdEstadio, e.Tipo, e.IdQR " +
+             "FROM Entrada e JOIN Transferencia t ON e.IdEntrada = t.IdEntrada " +
+             "WHERE t.PaisDocUsuario = ? AND t.TipoDocUsuario = ? AND t.NumeroDocUsuario = ? " +
+             "AND t.EstadoTransferencia = 'Aceptada'";
     
          return jdbcTemplate.query(sql,(rs,rowNum)->{
             Entrada e = new Entrada();
@@ -32,7 +37,7 @@ public class EntradaService {
             e.setTipo(rs.getString("tipo"));
             e.setIdQR(rs.getString("idQR"));
             return e;
-         },paisDocUsuario,tipoDocUsuario,numeroDocUsuario);
+         },paisDocUsuario,tipoDocUsuario,numeroDocUsuario, paisDocUsuario, tipoDocUsuario, numeroDocUsuario);
         }
     
 
