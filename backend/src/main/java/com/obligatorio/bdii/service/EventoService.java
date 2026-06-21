@@ -57,4 +57,19 @@ public class EventoService {
         }, id);
 
     }
+
+    public boolean deleteEvento(Integer idEvento) {
+        String sql = "DELETE FROM Evento WHERE Id = ?";
+        jdbcTemplate.update(sql, idEvento);
+        return true;
+    }
+
+    public boolean updateEvento(Integer IdEvento, LocalDate Fecha, LocalTime Hora,
+                                Integer IdEstadio, String PaisDocAdmin,
+                                String TipoDocAdmin, String NumeroDocAdmin) {
+        String sql = "UPDATE Evento SET Fecha = ?, Hora = ?, IdEstadio = ?, " +
+                     "PaisDocAdmin = ?, TipoDocAdmin = ?, NumeroDocAdmin = ? WHERE Id = ?";
+        jdbcTemplate.update(sql, Fecha, Hora, IdEstadio, PaisDocAdmin, TipoDocAdmin, NumeroDocAdmin, IdEvento);
+        return true;
+    }
 }

@@ -3,9 +3,13 @@ package com.obligatorio.bdii.controller;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
+
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -43,6 +47,21 @@ public class EventoController {
     @GetMapping("/{id}/sectores")
     public List<SeHabilita> obtenerSectores(@PathVariable Integer id) {
         return eventoService.obtenerSectoresPorEvento(id);
+    }
+    @DeleteMapping("/{id}")
+    public boolean deleteEvento(@PathVariable Integer id) {
+        return eventoService.deleteEvento(id);
+    }
+
+    @PatchMapping("/{id}")
+    public boolean updateEvento(@PathVariable Integer id,
+                                @RequestParam LocalDate fecha,
+                                @RequestParam LocalTime hora,
+                                @RequestParam Integer idEstadio,
+                                @RequestParam String paisDocAdmin,
+                                @RequestParam String tipoDocAdmin,
+                                @RequestParam String numeroDocAdmin) {
+        return eventoService.updateEvento(id, fecha, hora, idEstadio, paisDocAdmin, tipoDocAdmin, numeroDocAdmin);
     }
 
     
