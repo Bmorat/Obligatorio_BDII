@@ -2,11 +2,13 @@ package com.obligatorio.bdii.controller;
 
 import java.util.List;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import com.obligatorio.bdii.model.Estadio;
+import com.obligatorio.bdii.model.Evento;
 import com.obligatorio.bdii.service.EstadioService;
 
 @RestController
@@ -27,5 +29,10 @@ public class EstadioController {
     @PostMapping
     public int crearEstadio(@RequestParam String nombre, @RequestParam String ubicacion) {
         return estadioService.insertarEstadio(nombre, ubicacion);
+    }
+
+   @GetMapping("/{id}/eventos")
+    public List<Evento> obtenerEventosPorEstadio(@PathVariable String id) {
+        return estadioService.obtenerEventosPorEstadio(id);
     }
 }
