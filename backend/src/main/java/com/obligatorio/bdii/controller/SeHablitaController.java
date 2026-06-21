@@ -5,6 +5,10 @@ import com.obligatorio.bdii.service.seHablitaService;
 
 import java.util.List;
 
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -18,18 +22,18 @@ public class SeHablitaController {
         this.seHablitaService = seHablitaService;
     }
 
-    @RequestMapping
+    @PostMapping
     public boolean setSeHablitado(Integer IdEvento, String Tipo, Integer Precio, Integer CapacidadMax) {
         return seHablitaService.setSeHablitado(IdEvento, Tipo, Precio, CapacidadMax);
     }
 
-    @RequestMapping
-    public boolean deleteSeHablitado(Integer IdEvento, String Tipo) {
-        return deleteSeHablitado(IdEvento, Tipo);
+    @DeleteMapping
+    public boolean deleteSeHablitado(Integer idEvento, String tipo) {
+        return seHablitaService.deleteSeHablitado(idEvento, tipo);
     }
 
-    @RequestMapping
-    public List<SeHabilita> getSeHablita(Integer IdEvento) {
-        return seHablitaService.getSeHablita(IdEvento);
+    @GetMapping("{idEvento}")
+    public List<SeHabilita> getSeHablita(@PathVariable Integer idEvento) {
+    return seHablitaService.getSeHablita(idEvento);
     }
 }

@@ -6,7 +6,7 @@ import lombok.Setter;
 import lombok.ToString;
 import java.math.BigDecimal;
 
-@Getter @ToString @AllArgsConstructor
+@Getter @Setter @ToString @AllArgsConstructor
 public class SeHabilita {
 
     private Integer idEvento;

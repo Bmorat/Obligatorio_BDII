@@ -17,13 +17,13 @@ public class seHablitaService {
     }
 
     public boolean setSeHablitado(Integer IdEvento, String Tipo, Integer Precio, Integer CapacidadMax) {
-        Integer IdEstadio = jdbcTemplate.queryForObject("select IdEstadio from Evento where IdEvento = ?", Integer.class, IdEvento);
-        String sql = "INSERT INTO SeHablita (IdEvento, IdEstadio, Tipo, Precio, CapacidadMax) VALUES (?, ?, ?, ?, ?)";
+        Integer IdEstadio = jdbcTemplate.queryForObject("select IdEstadio from Evento where Id = ?", Integer.class, IdEvento);
+        String sql = "INSERT INTO Se_habilita (IdEvento, IdEstadio, Tipo, Precio, CapacidadHabilitada) VALUES (?, ?, ?, ?, ?)";
         jdbcTemplate.update(sql, IdEvento, IdEstadio, Tipo, Precio, CapacidadMax);
         return true; 
     }
     public boolean deleteSeHablitado(Integer IdEvento, String Tipo) {
-        String sql = "DELETE FROM SeHablita WHERE IdEvento = ? AND Tipo = ?";
+        String sql = "DELETE FROM Se_habilita WHERE IdEvento = ? AND Tipo = ?";
         jdbcTemplate.update(sql, IdEvento, Tipo);
         return true;
     }
