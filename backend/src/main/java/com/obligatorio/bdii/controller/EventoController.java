@@ -64,8 +64,12 @@ public class EventoController {
                                 @RequestParam Integer idEstadio,
                                 @RequestParam String paisDocAdmin,
                                 @RequestParam String tipoDocAdmin,
-                                @RequestParam String numeroDocAdmin) {
-        return eventoService.updateEvento(id, fecha, hora, idEstadio, paisDocAdmin, tipoDocAdmin, numeroDocAdmin);
+                                @RequestParam String numeroDocAdmin,
+                                @RequestParam(required = false) Integer idEquipoLocal,
+                                @RequestParam(required = false) Integer idEquipoVisitante) {
+        return eventoService.updateEvento(id, fecha, hora, idEstadio, paisDocAdmin,
+                                          tipoDocAdmin, numeroDocAdmin,
+                                          idEquipoLocal, idEquipoVisitante);
     }
 
     

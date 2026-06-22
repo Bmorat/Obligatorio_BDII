@@ -90,10 +90,18 @@ public class EventoService {
 
     public boolean updateEvento(Integer IdEvento, LocalDate Fecha, LocalTime Hora,
                                 Integer IdEstadio, String PaisDocAdmin,
-                                String TipoDocAdmin, String NumeroDocAdmin) {
+                                String TipoDocAdmin, String NumeroDocAdmin,
+                                Integer idEquipoLocal, Integer idEquipoVisitante) {
         String sql = "UPDATE Evento SET Fecha = ?, Hora = ?, IdEstadio = ?, " +
                      "PaisDocAdmin = ?, TipoDocAdmin = ?, NumeroDocAdmin = ? WHERE Id = ?";
         jdbcTemplate.update(sql, Fecha, Hora, IdEstadio, PaisDocAdmin, TipoDocAdmin, NumeroDocAdmin, IdEvento);
+
+        if (idEquipoLocal != null && idEquipoVisitante != null) {
+            jdbcTemplate.update("DELETE FROM Juega WHERE IdEvento = ?", IdEvento);
+            jdbcTemplate.update("INSERT INTO Juega (IdEvento, IdEquipo, Rol) VALUES (?, ?, ?)", IdEvento, idEquipoLocal, "Local");
+            jdbcTemplate.update("INSERT INTO Juega (IdEvento, IdEquipo, Rol) VALUES (?, ?, ?)", IdEvento, idEquipoVisitante, "Visitante");
+        }
+
         return true;
     }
 }
