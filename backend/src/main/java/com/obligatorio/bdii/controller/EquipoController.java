@@ -18,6 +18,11 @@ public class EquipoController {
         this.equipoService = equipoService;
     }
 
+    @GetMapping
+    public List<Equipo> getEquipos() {
+        return equipoService.obtenerEquipos();
+    }
+
     @GetMapping("/evento/{idEvento}")
     public List<Equipo> getEquiposByEvento(@PathVariable Integer idEvento) {
         return equipoService.obtenerEquiposPorEvento(idEvento);

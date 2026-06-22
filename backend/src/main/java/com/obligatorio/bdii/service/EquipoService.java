@@ -14,6 +14,16 @@ public class EquipoService {
         this.jdbcTemplate = jdbcTemplate;
     }
 
+    public List<Equipo> obtenerEquipos() {
+        String sql = "SELECT Id, NombreDeEquipo FROM Equipo";
+        return jdbcTemplate.query(sql, (rs, rowNum) -> {
+            Equipo eq = new Equipo();
+            eq.setId(rs.getInt("Id"));
+            eq.setNombreDeEquipo(rs.getString("NombreDeEquipo"));
+            return eq;
+        });
+    }
+
     public List<Equipo> obtenerEquiposPorEvento(Integer idEvento) {
         String sql = "SELECT e.Id, e.NombreDeEquipo FROM Equipo e " +
                      "INNER JOIN Juega j ON e.Id = j.IdEquipo " +
