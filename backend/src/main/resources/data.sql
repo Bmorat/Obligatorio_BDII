@@ -1,27 +1,3 @@
--- Estadio
-INSERT IGNORE INTO Estadio (Id, Nombre, Ubicacion, PaisDocAdmin, TipoDocAdmin, NumeroDocAdmin) VALUES
-(1, 'Estadio Centenario',        'Montevideo', 'URY', 'CI', '23456789'),
-(2, 'Estadio Campeón del Siglo', 'Montevideo', 'URY', 'CI', '23456789'),
-(3, 'Gran Parque Central',       'Montevideo', 'URY', 'CI', '67890123'),
-(4, 'Estadio Luis Tróccoli',     'Montevideo', 'URY', 'CI', '45678901'),
-(5, 'Jardines del Hipódromo',    'Montevideo', 'URY', 'CI', '45678901');
-
--- Sector
-INSERT IGNORE INTO Sector (IdEstadio, Tipo, Capacidad) VALUES
-(1, 'Tribuna', 15000), (1, 'Platea', 8000), (1, 'Palco', 500),
-(2, 'Tribuna', 12000), (2, 'Platea', 6000), (2, 'Palco', 400),
-(3, 'Tribuna', 8000),  (3, 'Platea', 4000), (3, 'Palco', 300),
-(4, 'Tribuna', 5000),  (4, 'Platea', 2500), (4, 'Palco', 200),
-(5, 'Tribuna', 7000),  (5, 'Platea', 3500), (5, 'Palco', 250);
-
--- Equipo
-INSERT IGNORE INTO Equipo (Id, NombreDeEquipo) VALUES
-(1, 'Nacional'),
-(2, 'Peñarol'),
-(3, 'Defensor Sporting'),
-(4, 'Danubio'),
-(5, 'Montevideo Wanderers');
-
 -- CodigoPostal
 INSERT IGNORE INTO CodigoPostal (Codigo, Localidad, Pais) VALUES
 ('11000', 'Montevideo Centro', 'Uruguay'),
@@ -45,7 +21,6 @@ INSERT IGNORE INTO Usuario (PaisDoc, TipoDoc, NumeroDoc, Correo, Dir_Calle, Dir_
 ('URY', 'CI', '01234567', 'valentina.herrera@email.com', 'Colonia',         '123',  '11500');
 
 -- CredencialUsuario
--- Password de prueba para todos los usuarios: password123
 INSERT IGNORE INTO CredencialUsuario (PaisDoc, TipoDoc, NumeroDoc, PasswordHash) VALUES
 ('URY', 'CI', '12345678', '$2y$10$skeckeaqfHRroPaN0exaFekI4S56H1O44ICh/rv36s.ACa8u84Rxy'),
 ('URY', 'CI', '23456789', '$2y$10$skeckeaqfHRroPaN0exaFekI4S56H1O44ICh/rv36s.ACa8u84Rxy'),
@@ -71,18 +46,26 @@ INSERT IGNORE INTO Telefono (PaisDoc, TipoDoc, NumeroDoc, NumTelefono) VALUES
 ('URY', 'CI', '90123456', '+59899012345'),
 ('URY', 'CI', '01234567', '+59891123456');
 
--- Usuario_General
-INSERT IGNORE INTO Usuario_General (PaisDoc, TipoDoc, NumeroDoc, FechaRegistro, EstadoVerificacion) VALUES
-('URY', 'CI', '12345678', '2024-01-15', 'Verificado'),
-('URY', 'CI', '34567890', '2024-02-20', 'Verificado'),
-('URY', 'CI', '56789012', '2024-03-10', 'Pendiente'),
-('URY', 'CI', '78901234', '2024-04-05', 'Verificado');
+-- Equipo
+INSERT IGNORE INTO Equipo (Id, NombreDeEquipo) VALUES
+(1, 'Nacional'),
+(2, 'Peñarol'),
+(3, 'Defensor Sporting'),
+(4, 'Danubio'),
+(5, 'Montevideo Wanderers');
 
 -- Administrador_Sede
 INSERT IGNORE INTO Administrador_Sede (PaisDoc, TipoDoc, NumeroDoc, FechaAsignacion) VALUES
 ('URY', 'CI', '23456789', '2024-01-01'),
 ('URY', 'CI', '45678901', '2024-01-15'),
 ('URY', 'CI', '67890123', '2024-02-01');
+
+-- Usuario_General
+INSERT IGNORE INTO Usuario_General (PaisDoc, TipoDoc, NumeroDoc, FechaRegistro, EstadoVerificacion) VALUES
+('URY', 'CI', '12345678', '2024-01-15', 'Verificado'),
+('URY', 'CI', '34567890', '2024-02-20', 'Verificado'),
+('URY', 'CI', '56789012', '2024-03-10', 'Pendiente'),
+('URY', 'CI', '78901234', '2024-04-05', 'Verificado');
 
 -- Funcionario_Validacion
 INSERT IGNORE INTO Funcionario_Validacion (PaisDoc, TipoDoc, NumeroDoc, NumeroLegajo) VALUES
@@ -97,6 +80,22 @@ INSERT IGNORE INTO Dispositivo_Validacion (IdDispositivo, PaisDocFunc, TipoDocFu
 (3, 'URY', 'CI', '90123456'),
 (4, 'URY', 'CI', '01234567');
 
+-- Estadio
+INSERT IGNORE INTO Estadio (Id, Nombre, Ubicacion, PaisDocAdmin, TipoDocAdmin, NumeroDocAdmin) VALUES
+(1, 'Estadio Centenario',        'Montevideo', 'URY', 'CI', '23456789'),
+(2, 'Estadio Campeón del Siglo', 'Montevideo', 'URY', 'CI', '23456789'),
+(3, 'Gran Parque Central',       'Montevideo', 'URY', 'CI', '67890123'),
+(4, 'Estadio Luis Tróccoli',     'Montevideo', 'URY', 'CI', '45678901'),
+(5, 'Jardines del Hipódromo',    'Montevideo', 'URY', 'CI', '45678901');
+
+-- Sector
+INSERT IGNORE INTO Sector (IdEstadio, Tipo, Capacidad) VALUES
+(1, 'Tribuna', 15000), (1, 'Platea', 8000), (1, 'Palco', 500),
+(2, 'Tribuna', 12000), (2, 'Platea', 6000), (2, 'Palco', 400),
+(3, 'Tribuna', 8000),  (3, 'Platea', 4000), (3, 'Palco', 300),
+(4, 'Tribuna', 5000),  (4, 'Platea', 2500), (4, 'Palco', 200),
+(5, 'Tribuna', 7000),  (5, 'Platea', 3500), (5, 'Palco', 250);
+
 -- Evento
 INSERT IGNORE INTO Evento (Id, Fecha, Hora, IdEstadio) VALUES
 (1, '2024-06-01', '15:00:00', 1),
@@ -105,7 +104,7 @@ INSERT IGNORE INTO Evento (Id, Fecha, Hora, IdEstadio) VALUES
 (4, '2024-06-22', '17:00:00', 3),
 (5, '2024-06-29', '15:00:00', 2);
 
--- Juega (solo equipos del 1 al 5, que son los que existen)
+-- Juega
 INSERT IGNORE INTO Juega (IdEvento, IdEquipo, Rol) VALUES
 (1, 1, 'Local'),  (1, 2, 'Visitante'),
 (2, 3, 'Local'),  (2, 4, 'Visitante'),
@@ -113,7 +112,7 @@ INSERT IGNORE INTO Juega (IdEvento, IdEquipo, Rol) VALUES
 (4, 2, 'Local'),  (4, 5, 'Visitante'),
 (5, 4, 'Local'),  (5, 1, 'Visitante');
 
--- Se_habilita (sectores habilitados por evento con precio)
+-- Se_habilita
 INSERT IGNORE INTO Se_habilita (IdEvento, IdEstadio, Tipo, Precio, CapacidadHabilitada) VALUES
 (1, 1, 'Tribuna', 500.00,  10000),
 (1, 1, 'Platea',  1200.00, 5000),
@@ -126,13 +125,13 @@ INSERT IGNORE INTO Se_habilita (IdEvento, IdEstadio, Tipo, Precio, CapacidadHabi
 (5, 2, 'Tribuna', 600.00,  8000),
 (5, 2, 'Platea',  1500.00, 4000);
 
--- Comision (solo una con Vigente = true)
+-- Comision
 INSERT IGNORE INTO Comision (IdComision, Vigente, Fecha, Porcentaje) VALUES
 (1, false, '2024-06-01', 3.50),
 (2, false, '2024-06-15', 4.00),
 (3, true,  '2024-07-01', 5.00);
 
--- QR (necesarios antes de insertar Entrada)
+-- QR
 INSERT IGNORE INTO QR (IdQR) VALUES
 ('QR-001'), ('QR-002'), ('QR-003'), ('QR-004'), ('QR-005'),
 ('QR-006'), ('QR-007'), ('QR-008'), ('QR-009'), ('QR-010'),

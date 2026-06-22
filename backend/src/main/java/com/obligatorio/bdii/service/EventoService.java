@@ -75,8 +75,12 @@ public class EventoService {
     }
 
     public boolean deleteEvento(Integer idEvento) {
-        String sql = "DELETE FROM Evento WHERE Id = ?";
-        jdbcTemplate.update(sql, idEvento);
+        jdbcTemplate.update("DELETE FROM Asignado_a WHERE IdEvento = ?", idEvento);
+        jdbcTemplate.update("DELETE FROM Transferencia WHERE IdEntrada IN (SELECT IdEntrada FROM Entrada WHERE IdEvento = ?)", idEvento);
+        jdbcTemplate.update("DELETE FROM Entrada WHERE IdEvento = ?", idEvento);
+        jdbcTemplate.update("DELETE FROM Se_habilita WHERE IdEvento = ?", idEvento);
+        jdbcTemplate.update("DELETE FROM Juega WHERE IdEvento = ?", idEvento);
+        jdbcTemplate.update("DELETE FROM Evento WHERE Id = ?", idEvento);
         return true;
     }
 
