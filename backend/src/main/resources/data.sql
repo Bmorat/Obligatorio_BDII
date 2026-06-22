@@ -1,10 +1,10 @@
 -- Estadio
-INSERT IGNORE INTO Estadio (Id, Nombre, Ubicacion) VALUES
-(1, 'Estadio Centenario', 'Montevideo'),
-(2, 'Estadio Campeón del Siglo', 'Montevideo'),
-(3, 'Gran Parque Central', 'Montevideo'),
-(4, 'Estadio Luis Tróccoli', 'Montevideo'),
-(5, 'Jardines del Hipódromo', 'Montevideo');
+INSERT IGNORE INTO Estadio (Id, Nombre, Ubicacion, PaisDocAdmin, TipoDocAdmin, NumeroDocAdmin) VALUES
+(1, 'Estadio Centenario',        'Montevideo', 'URY', 'CI', '23456789'),
+(2, 'Estadio Campeón del Siglo', 'Montevideo', 'URY', 'CI', '23456789'),
+(3, 'Gran Parque Central',       'Montevideo', 'URY', 'CI', '67890123'),
+(4, 'Estadio Luis Tróccoli',     'Montevideo', 'URY', 'CI', '45678901'),
+(5, 'Jardines del Hipódromo',    'Montevideo', 'URY', 'CI', '45678901');
 
 -- Sector
 INSERT IGNORE INTO Sector (IdEstadio, Tipo, Capacidad) VALUES
@@ -97,13 +97,13 @@ INSERT IGNORE INTO Dispositivo_Validacion (IdDispositivo, PaisDocFunc, TipoDocFu
 (3, 'URY', 'CI', '90123456'),
 (4, 'URY', 'CI', '01234567');
 
--- Evento (requiere Fecha, Hora, IdEstadio y un Administrador_Sede existente)
-INSERT IGNORE INTO Evento (Id, Fecha, Hora, IdEstadio, PaisDocAdmin, TipoDocAdmin, NumeroDocAdmin) VALUES
-(1, '2024-06-01', '15:00:00', 1, 'URY', 'CI', '23456789'),
-(2, '2024-06-08', '17:00:00', 2, 'URY', 'CI', '23456789'),
-(3, '2024-06-15', '15:00:00', 1, 'URY', 'CI', '45678901'),
-(4, '2024-06-22', '17:00:00', 3, 'URY', 'CI', '67890123'),
-(5, '2024-06-29', '15:00:00', 2, 'URY', 'CI', '45678901');
+-- Evento
+INSERT IGNORE INTO Evento (Id, Fecha, Hora, IdEstadio) VALUES
+(1, '2024-06-01', '15:00:00', 1),
+(2, '2024-06-08', '17:00:00', 2),
+(3, '2024-06-15', '15:00:00', 1),
+(4, '2024-06-22', '17:00:00', 3),
+(5, '2024-06-29', '15:00:00', 2);
 
 -- Juega (solo equipos del 1 al 5, que son los que existen)
 INSERT IGNORE INTO Juega (IdEvento, IdEquipo, Rol) VALUES

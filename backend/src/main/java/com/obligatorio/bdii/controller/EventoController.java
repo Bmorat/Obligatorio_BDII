@@ -37,15 +37,10 @@ public class EventoController {
     public Integer crearEvento(@RequestParam LocalDate fecha,
                                @RequestParam LocalTime hora,
                                @RequestParam Integer idEstadio,
-                               @RequestParam String paisDocAdmin,
-                               @RequestParam String tipoDocAdmin,
-                               @RequestParam String numeroDocAdmin,
                                @RequestParam Integer idEquipoLocal,
                                @RequestParam Integer idEquipoVisitante) {
 
-        return eventoService.insertarEvento(fecha, hora, idEstadio, paisDocAdmin,
-                                            tipoDocAdmin, numeroDocAdmin,
-                                            idEquipoLocal, idEquipoVisitante);
+        return eventoService.insertarEvento(fecha, hora, idEstadio, idEquipoLocal, idEquipoVisitante);
     }
     
     @GetMapping("/{id}/sectores")
@@ -62,14 +57,9 @@ public class EventoController {
                                 @RequestParam LocalDate fecha,
                                 @RequestParam LocalTime hora,
                                 @RequestParam Integer idEstadio,
-                                @RequestParam String paisDocAdmin,
-                                @RequestParam String tipoDocAdmin,
-                                @RequestParam String numeroDocAdmin,
                                 @RequestParam(required = false) Integer idEquipoLocal,
                                 @RequestParam(required = false) Integer idEquipoVisitante) {
-        return eventoService.updateEvento(id, fecha, hora, idEstadio, paisDocAdmin,
-                                          tipoDocAdmin, numeroDocAdmin,
-                                          idEquipoLocal, idEquipoVisitante);
+        return eventoService.updateEvento(id, fecha, hora, idEstadio, idEquipoLocal, idEquipoVisitante);
     }
 
     

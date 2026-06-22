@@ -24,35 +24,27 @@ public class EventoService {
     }
     
     public List<Evento> obtenerEventos() {
-        String sql = "SELECT Id, Fecha, Hora,IdEstadio, PaisDocAdmin, TipoDocAdmin, NumeroDocAdmin FROM Evento";
+        String sql = "SELECT Id, Fecha, Hora, IdEstadio FROM Evento";
         return jdbcTemplate.query(sql, (rs, rowNum) -> {
-                Evento e= new Evento();
+                Evento e = new Evento();
                 e.setId(rs.getInt("Id"));
-                e.setFecha(rs.getDate( "Fecha").toLocalDate()); 
-                e.setHora(rs.getTime( "Hora").toLocalTime());
-                e.setIdEstadio(rs.getInt( "IdEstadio"));
-                e.setPaisDocAdmin(rs.getString( "PaisDocAdmin"));
-                e.setTipoDocAdmin(rs.getString( "TipoDocAdmin"));
-                e.setNumeroDocAdmin(rs.getString( "NumeroDocAdmin"));
-
-                  return e;
+                e.setFecha(rs.getDate("Fecha").toLocalDate()); 
+                e.setHora(rs.getTime("Hora").toLocalTime());
+                e.setIdEstadio(rs.getInt("IdEstadio"));
+                return e;
             });
           
     }
 
     public Integer insertarEvento(LocalDate fecha, LocalTime hora, Integer idEstadio,
-                                  String paisDocAdmin, String tipoDocAdmin, String numeroDocAdmin,
                                   Integer idEquipoLocal, Integer idEquipoVisitante) {
-        String sqlEvento = "INSERT INTO Evento (fecha, hora, idEstadio, paisDocAdmin, tipoDocAdmin, numeroDocAdmin) VALUES (?, ?, ?, ?, ?, ?)";
+        String sqlEvento = "INSERT INTO Evento (fecha, hora, idEstadio) VALUES (?, ?, ?)";
         KeyHolder keyHolder = new GeneratedKeyHolder();
         jdbcTemplate.update(connection -> {
             PreparedStatement ps = connection.prepareStatement(sqlEvento, Statement.RETURN_GENERATED_KEYS);
             ps.setObject(1, fecha);
             ps.setObject(2, hora);
             ps.setInt(3, idEstadio);
-            ps.setString(4, paisDocAdmin);
-            ps.setString(5, tipoDocAdmin);
-            ps.setString(6, numeroDocAdmin);
             return ps;
         }, keyHolder);
 
@@ -89,12 +81,10 @@ public class EventoService {
     }
 
     public boolean updateEvento(Integer IdEvento, LocalDate Fecha, LocalTime Hora,
-                                Integer IdEstadio, String PaisDocAdmin,
-                                String TipoDocAdmin, String NumeroDocAdmin,
+                                Integer IdEstadio,
                                 Integer idEquipoLocal, Integer idEquipoVisitante) {
-        String sql = "UPDATE Evento SET Fecha = ?, Hora = ?, IdEstadio = ?, " +
-                     "PaisDocAdmin = ?, TipoDocAdmin = ?, NumeroDocAdmin = ? WHERE Id = ?";
-        jdbcTemplate.update(sql, Fecha, Hora, IdEstadio, PaisDocAdmin, TipoDocAdmin, NumeroDocAdmin, IdEvento);
+        String sql = "UPDATE Evento SET Fecha = ?, Hora = ?, IdEstadio = ? WHERE Id = ?";
+        jdbcTemplate.update(sql, Fecha, Hora, IdEstadio, IdEvento);
 
         if (idEquipoLocal != null && idEquipoVisitante != null) {
             jdbcTemplate.update("DELETE FROM Juega WHERE IdEvento = ?", IdEvento);

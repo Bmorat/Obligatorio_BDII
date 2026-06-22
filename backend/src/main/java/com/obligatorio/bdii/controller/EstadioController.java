@@ -27,8 +27,12 @@ public class EstadioController {
     }
 
     @PostMapping
-    public int crearEstadio(@RequestParam String nombre, @RequestParam String ubicacion) {
-        return estadioService.insertarEstadio(nombre, ubicacion);
+    public int crearEstadio(@RequestParam String nombre,
+                            @RequestParam String ubicacion,
+                            @RequestParam String paisDocAdmin,
+                            @RequestParam String tipoDocAdmin,
+                            @RequestParam String numeroDocAdmin) {
+        return estadioService.insertarEstadio(nombre, ubicacion, paisDocAdmin, tipoDocAdmin, numeroDocAdmin);
     }
      @GetMapping(params = {"paisDoc", "tipoDoc", "numeroDoc"})
     public List<Estadio> BuscarEstadioPorAdmin(

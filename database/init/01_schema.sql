@@ -2,7 +2,11 @@ CREATE TABLE Estadio (
     Id          INT          NOT NULL AUTO_INCREMENT,
     Nombre      VARCHAR(100) NOT NULL,
     Ubicacion   VARCHAR(200) NOT NULL,
+    PaisDocAdmin   CHAR(3)     NOT NULL,
+    TipoDocAdmin   VARCHAR(20) NOT NULL,
+    NumeroDocAdmin VARCHAR(30) NOT NULL,
     CONSTRAINT PK_Estadio PRIMARY KEY (Id)
+    CONSTRAINT FK_Evento_AdminSede FOREIGN KEY (PaisDocAdmin, TipoDocAdmin, NumeroDocAdmin) REFERENCES Administrador_Sede(PaisDoc, TipoDoc, NumeroDoc)
 );
 
 CREATE TABLE Sector (
@@ -93,12 +97,9 @@ CREATE TABLE Evento (
     Fecha          DATE        NOT NULL,
     Hora           TIME        NOT NULL,
     IdEstadio      INT         NOT NULL,
-    PaisDocAdmin   CHAR(3)     NOT NULL,
-    TipoDocAdmin   VARCHAR(20) NOT NULL,
-    NumeroDocAdmin VARCHAR(30) NOT NULL,
     CONSTRAINT PK_Evento PRIMARY KEY (Id),
     CONSTRAINT FK_Evento_Estadio FOREIGN KEY (IdEstadio) REFERENCES Estadio(Id),
-    CONSTRAINT FK_Evento_AdminSede FOREIGN KEY (PaisDocAdmin, TipoDocAdmin, NumeroDocAdmin) REFERENCES Administrador_Sede(PaisDoc, TipoDoc, NumeroDoc)
+   
 );
 
 CREATE TABLE Equipo (
