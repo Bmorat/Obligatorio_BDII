@@ -1,7 +1,11 @@
 package com.obligatorio.bdii.service;
 
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
+import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Service;
+import java.sql.PreparedStatement;
+import java.sql.Statement;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
@@ -36,9 +40,29 @@ public class EventoService {
           
     }
 
-    public int insertarEvento(LocalDate fecha, LocalTime hora, Integer idEstadio, String paisDocAdmin, String tipoDocAdmin, String numeroDocAdmin){
-        String sql = "INSERT INTO Evento (fecha, hora, idEstadio, paisDocAdmin, tipoDocAdmin, numeroDocAdmin) VALUES (?, ?, ?, ?, ?, ?)";
-        return jdbcTemplate.update(sql, fecha, hora, idEstadio, paisDocAdmin, tipoDocAdmin, numeroDocAdmin);
+    public Integer insertarEvento(LocalDate fecha, LocalTime hora, Integer idEstadio,
+                                  String paisDocAdmin, String tipoDocAdmin, String numeroDocAdmin,
+                                  Integer idEquipoLocal, Integer idEquipoVisitante) {
+        String sqlEvento = "INSERT INTO Evento (fecha, hora, idEstadio, paisDocAdmin, tipoDocAdmin, numeroDocAdmin) VALUES (?, ?, ?, ?, ?, ?)";
+        KeyHolder keyHolder = new GeneratedKeyHolder();
+        jdbcTemplate.update(connection -> {
+            PreparedStatement ps = connection.prepareStatement(sqlEvento, Statement.RETURN_GENERATED_KEYS);
+            ps.setObject(1, fecha);
+            ps.setObject(2, hora);
+            ps.setInt(3, idEstadio);
+            ps.setString(4, paisDocAdmin);
+            ps.setString(5, tipoDocAdmin);
+            ps.setString(6, numeroDocAdmin);
+            return ps;
+        }, keyHolder);
+
+        Integer idEvento = keyHolder.getKey().intValue();
+
+        String sqlJuega = "INSERT INTO Juega (IdEvento, IdEquipo, Rol) VALUES (?, ?, ?)";
+        jdbcTemplate.update(sqlJuega, idEvento, idEquipoLocal, "Local");
+        jdbcTemplate.update(sqlJuega, idEvento, idEquipoVisitante, "Visitante");
+
+        return idEvento;
     }
 
     public List<SeHabilita> obtenerSectoresPorEvento(Integer id){

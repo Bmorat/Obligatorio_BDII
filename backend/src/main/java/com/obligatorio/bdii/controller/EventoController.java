@@ -34,15 +34,19 @@ public class EventoController {
     }
 
     @PostMapping
-    public int crearEvento(@RequestParam LocalDate fecha,
-                            @RequestParam LocalTime hora,
-                            @RequestParam Integer idEstadio,
-                            @RequestParam String paisDocAdmin,
-                            @RequestParam String tipoDocAdmin,
-                            @RequestParam String numeroDocAdmin) {
+    public Integer crearEvento(@RequestParam LocalDate fecha,
+                               @RequestParam LocalTime hora,
+                               @RequestParam Integer idEstadio,
+                               @RequestParam String paisDocAdmin,
+                               @RequestParam String tipoDocAdmin,
+                               @RequestParam String numeroDocAdmin,
+                               @RequestParam Integer idEquipoLocal,
+                               @RequestParam Integer idEquipoVisitante) {
 
-            return eventoService.insertarEvento(fecha,hora,idEstadio,paisDocAdmin,tipoDocAdmin,numeroDocAdmin);
-                            }
+        return eventoService.insertarEvento(fecha, hora, idEstadio, paisDocAdmin,
+                                            tipoDocAdmin, numeroDocAdmin,
+                                            idEquipoLocal, idEquipoVisitante);
+    }
     
     @GetMapping("/{id}/sectores")
     public List<SeHabilita> obtenerSectores(@PathVariable Integer id) {
