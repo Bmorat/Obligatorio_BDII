@@ -1,7 +1,11 @@
 package com.obligatorio.bdii.service;
 
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
+import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Service;
+import java.sql.PreparedStatement;
+import java.sql.Statement;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
@@ -20,25 +24,37 @@ public class EventoService {
     }
     
     public List<Evento> obtenerEventos() {
-        String sql = "SELECT Id, Fecha, Hora,IdEstadio, PaisDocAdmin, TipoDocAdmin, NumeroDocAdmin FROM Evento";
+        String sql = "SELECT Id, Fecha, Hora, IdEstadio FROM Evento";
         return jdbcTemplate.query(sql, (rs, rowNum) -> {
-                Evento e= new Evento();
+                Evento e = new Evento();
                 e.setId(rs.getInt("Id"));
-                e.setFecha(rs.getDate( "Fecha").toLocalDate()); 
-                e.setHora(rs.getTime( "Hora").toLocalTime());
-                e.setIdEstadio(rs.getInt( "IdEstadio"));
-                e.setPaisDocAdmin(rs.getString( "PaisDocAdmin"));
-                e.setTipoDocAdmin(rs.getString( "TipoDocAdmin"));
-                e.setNumeroDocAdmin(rs.getString( "NumeroDocAdmin"));
-
-                  return e;
+                e.setFecha(rs.getDate("Fecha").toLocalDate()); 
+                e.setHora(rs.getTime("Hora").toLocalTime());
+                e.setIdEstadio(rs.getInt("IdEstadio"));
+                return e;
             });
           
     }
 
-    public int insertarEvento(LocalDate fecha, LocalTime hora, Integer idEstadio, String paisDocAdmin, String tipoDocAdmin, String numeroDocAdmin){
-        String sql = "INSERT INTO Evento (fecha, hora, idEstadio, paisDocAdmin, tipoDocAdmin, numeroDocAdmin) VALUES (?, ?, ?, ?, ?, ?)";
-        return jdbcTemplate.update(sql, fecha, hora, idEstadio, paisDocAdmin, tipoDocAdmin, numeroDocAdmin);
+    public Integer insertarEvento(LocalDate fecha, LocalTime hora, Integer idEstadio,
+                                  Integer idEquipoLocal, Integer idEquipoVisitante) {
+        String sqlEvento = "INSERT INTO Evento (fecha, hora, idEstadio) VALUES (?, ?, ?)";
+        KeyHolder keyHolder = new GeneratedKeyHolder();
+        jdbcTemplate.update(connection -> {
+            PreparedStatement ps = connection.prepareStatement(sqlEvento, Statement.RETURN_GENERATED_KEYS);
+            ps.setObject(1, fecha);
+            ps.setObject(2, hora);
+            ps.setInt(3, idEstadio);
+            return ps;
+        }, keyHolder);
+
+        Integer idEvento = keyHolder.getKey().intValue();
+
+        String sqlJuega = "INSERT INTO Juega (IdEvento, IdEquipo, Rol) VALUES (?, ?, ?)";
+        jdbcTemplate.update(sqlJuega, idEvento, idEquipoLocal, "Local");
+        jdbcTemplate.update(sqlJuega, idEvento, idEquipoVisitante, "Visitante");
+
+        return idEvento;
     }
 
     public List<SeHabilita> obtenerSectoresPorEvento(Integer id){
@@ -59,17 +75,27 @@ public class EventoService {
     }
 
     public boolean deleteEvento(Integer idEvento) {
-        String sql = "DELETE FROM Evento WHERE Id = ?";
-        jdbcTemplate.update(sql, idEvento);
+        jdbcTemplate.update("DELETE FROM Asignado_a WHERE IdEvento = ?", idEvento);
+        jdbcTemplate.update("DELETE FROM Transferencia WHERE IdEntrada IN (SELECT IdEntrada FROM Entrada WHERE IdEvento = ?)", idEvento);
+        jdbcTemplate.update("DELETE FROM Entrada WHERE IdEvento = ?", idEvento);
+        jdbcTemplate.update("DELETE FROM Se_habilita WHERE IdEvento = ?", idEvento);
+        jdbcTemplate.update("DELETE FROM Juega WHERE IdEvento = ?", idEvento);
+        jdbcTemplate.update("DELETE FROM Evento WHERE Id = ?", idEvento);
         return true;
     }
 
     public boolean updateEvento(Integer IdEvento, LocalDate Fecha, LocalTime Hora,
-                                Integer IdEstadio, String PaisDocAdmin,
-                                String TipoDocAdmin, String NumeroDocAdmin) {
-        String sql = "UPDATE Evento SET Fecha = ?, Hora = ?, IdEstadio = ?, " +
-                     "PaisDocAdmin = ?, TipoDocAdmin = ?, NumeroDocAdmin = ? WHERE Id = ?";
-        jdbcTemplate.update(sql, Fecha, Hora, IdEstadio, PaisDocAdmin, TipoDocAdmin, NumeroDocAdmin, IdEvento);
+                                Integer IdEstadio,
+                                Integer idEquipoLocal, Integer idEquipoVisitante) {
+        String sql = "UPDATE Evento SET Fecha = ?, Hora = ?, IdEstadio = ? WHERE Id = ?";
+        jdbcTemplate.update(sql, Fecha, Hora, IdEstadio, IdEvento);
+
+        if (idEquipoLocal != null && idEquipoVisitante != null) {
+            jdbcTemplate.update("DELETE FROM Juega WHERE IdEvento = ?", IdEvento);
+            jdbcTemplate.update("INSERT INTO Juega (IdEvento, IdEquipo, Rol) VALUES (?, ?, ?)", IdEvento, idEquipoLocal, "Local");
+            jdbcTemplate.update("INSERT INTO Juega (IdEvento, IdEquipo, Rol) VALUES (?, ?, ?)", IdEvento, idEquipoVisitante, "Visitante");
+        }
+
         return true;
     }
 }

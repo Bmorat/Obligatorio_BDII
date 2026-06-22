@@ -14,9 +14,6 @@ public class Evento {
     private LocalDate fecha;
     private LocalTime hora;
     private Integer idEstadio;
-    private String paisDocAdmin;
-    private String tipoDocAdmin;
-    private String numeroDocAdmin;
 
     public Evento() {}
 }
