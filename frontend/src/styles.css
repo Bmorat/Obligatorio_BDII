@@ -1,7 +1,9 @@
 :root {
-  color: #172033;
-  background: #f5f7fb;
+  color: #1c2533;
+  background: #eef2f6;
   font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
 }
 
 * {
@@ -14,39 +16,205 @@ body {
   min-height: 100vh;
 }
 
-.app {
+button,
+input {
+  font: inherit;
+}
+
+.app-shell {
   display: grid;
   min-height: 100vh;
   place-items: center;
   padding: 32px;
 }
 
-.panel {
-  width: min(100%, 720px);
-  border: 1px solid #d8deea;
+.login-surface {
+  display: grid;
+  grid-template-columns: minmax(280px, 0.95fr) minmax(320px, 1fr);
+  width: min(100%, 980px);
+  min-height: 540px;
+  overflow: hidden;
+  border: 1px solid #d5dce7;
   border-radius: 8px;
   background: #ffffff;
-  padding: 32px;
+  box-shadow: 0 20px 60px rgb(34 45 67 / 12%);
+}
+
+.brand-panel {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 40px;
+  background: #12343b;
+  color: #ffffff;
+}
+
+.brand-panel h1,
+.auth-panel h2 {
+  margin: 0;
+  letter-spacing: 0;
+}
+
+.brand-panel h1 {
+  max-width: 420px;
+  font-size: 2.75rem;
+  line-height: 1;
+}
+
+.brand-panel p:not(.eyebrow) {
+  max-width: 440px;
+  margin: 18px 0 0;
+  color: #d9e5e7;
+  font-size: 1rem;
+  line-height: 1.6;
 }
 
 .eyebrow {
   margin: 0 0 12px;
-  color: #456179;
-  font-size: 0.82rem;
+  color: inherit;
+  font-size: 0.76rem;
   font-weight: 700;
   letter-spacing: 0;
   text-transform: uppercase;
+  opacity: 0.72;
 }
 
-h1 {
-  margin: 0 0 12px;
-  font-size: clamp(2rem, 5vw, 3.25rem);
-  line-height: 1.05;
+.auth-panel {
+  display: grid;
+  align-items: center;
+  padding: 40px;
 }
 
-p {
+.login-form,
+.session-view {
+  display: grid;
+  gap: 22px;
+}
+
+.login-form h2,
+.session-view h2 {
+  color: #182232;
+  font-size: 1.7rem;
+  line-height: 1.1;
+  overflow-wrap: anywhere;
+}
+
+.login-form label {
+  display: grid;
+  gap: 8px;
+  color: #334056;
+  font-size: 0.92rem;
+  font-weight: 700;
+}
+
+.login-form input {
+  width: 100%;
+  min-height: 48px;
+  border: 1px solid #c7d0dd;
+  border-radius: 6px;
+  background: #ffffff;
+  color: #1c2533;
+  padding: 0 14px;
+  outline: none;
+}
+
+.login-form input:focus {
+  border-color: #25737c;
+  box-shadow: 0 0 0 3px rgb(37 115 124 / 18%);
+}
+
+.primary-button,
+.secondary-button {
+  min-height: 48px;
+  border: 0;
+  border-radius: 6px;
+  padding: 0 18px;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.primary-button {
+  background: #25737c;
+  color: #ffffff;
+}
+
+.primary-button:disabled {
+  cursor: wait;
+  opacity: 0.7;
+}
+
+.secondary-button {
+  justify-self: start;
+  border: 1px solid #c7d0dd;
+  background: #ffffff;
+  color: #223049;
+}
+
+.error-message {
   margin: 0;
-  color: #4b5870;
-  font-size: 1.05rem;
-  line-height: 1.6;
+  border-left: 4px solid #b42318;
+  background: #fff1f0;
+  color: #8f1d14;
+  padding: 12px 14px;
+  font-size: 0.92rem;
+  line-height: 1.4;
+}
+
+.session-details {
+  display: grid;
+  gap: 12px;
+  margin: 0;
+}
+
+.session-details div {
+  display: grid;
+  gap: 5px;
+  border: 1px solid #dbe2ec;
+  border-radius: 6px;
+  padding: 14px;
+  background: #f8fafc;
+}
+
+.session-details dt {
+  color: #657287;
+  font-size: 0.74rem;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.session-details dd {
+  margin: 0;
+  color: #1d2738;
+  font-size: 0.96rem;
+  font-weight: 700;
+}
+
+.token-preview {
+  max-height: 78px;
+  overflow: auto;
+  overflow-wrap: anywhere;
+  font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+  font-size: 0.78rem;
+  line-height: 1.45;
+}
+
+@media (max-width: 760px) {
+  .app-shell {
+    align-items: stretch;
+    padding: 16px;
+  }
+
+  .login-surface {
+    grid-template-columns: 1fr;
+    min-height: auto;
+  }
+
+  .brand-panel,
+  .auth-panel {
+    padding: 28px;
+  }
+
+  .brand-panel h1 {
+    font-size: 2rem;
+  }
 }
