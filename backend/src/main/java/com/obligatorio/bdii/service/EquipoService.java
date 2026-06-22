@@ -25,13 +25,14 @@ public class EquipoService {
     }
 
     public List<Equipo> obtenerEquiposPorEvento(Integer idEvento) {
-        String sql = "SELECT e.Id, e.NombreDeEquipo FROM Equipo e " +
+        String sql = "SELECT e.Id, e.NombreDeEquipo, j.Rol FROM Equipo e " +
                      "INNER JOIN Juega j ON e.Id = j.IdEquipo " +
                      "WHERE j.IdEvento = ?";
         return jdbcTemplate.query(sql, (rs, rowNum) -> {
             Equipo eq = new Equipo();
             eq.setId(rs.getInt("Id"));
             eq.setNombreDeEquipo(rs.getString("NombreDeEquipo"));
+            eq.setRol(rs.getString("Rol"));
             return eq;
         }, idEvento);
     }
