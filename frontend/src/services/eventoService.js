@@ -69,3 +69,13 @@ export function deshabilitarSector(data) {
     },
   });
 }
+
+export function deshabilitarSectorForzar(data) {
+  return fetchJson('/api/SeHablita/forzar', {
+    method: 'DELETE',
+    params: {
+      IdEvento: data.idEvento,
+      Tipo: data.tipo,
+    },
+  });
+}

@@ -48,7 +48,20 @@ export default function SectorManagerModal({ evento, estadio, onClose }) {
       const updated = await eventoService.getSectores(evento.id);
       setSectoresHabilitados(updated);
     } catch (err) {
-      alert('Error: ' + err.message);
+      try {
+        const parsed = JSON.parse(err.message);
+        if (parsed.error === 'No se puede deshabilitar: el sector tiene entradas vendidas') {
+          if (confirm(`El sector ${codigo} tiene entradas vendidas. ¿Deshabilitar de todas formas? Se eliminaran las entradas asociadas.`)) {
+            await eventoService.deshabilitarSectorForzar({ idEvento: evento.id, tipo: codigo });
+            const updated = await eventoService.getSectores(evento.id);
+            setSectoresHabilitados(updated);
+          }
+        } else {
+          alert(parsed.error);
+        }
+      } catch {
+        alert('Error: ' + err.message);
+      }
     }
   }
 
