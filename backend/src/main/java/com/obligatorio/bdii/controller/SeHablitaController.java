@@ -1,6 +1,7 @@
 package com.obligatorio.bdii.controller;
 
 import com.obligatorio.bdii.model.SeHabilita;
+import com.obligatorio.bdii.model.SectorTipo;
 import com.obligatorio.bdii.service.seHablitaService;
 
 import java.util.List;
@@ -23,12 +24,12 @@ public class SeHablitaController {
     }
 
     @PostMapping
-    public boolean setSeHablitado(Integer IdEvento, String Tipo, Integer Precio, Integer CapacidadMax) {
+    public boolean setSeHablitado(Integer IdEvento, SectorTipo Tipo, Integer Precio, Integer CapacidadMax) {
         return seHablitaService.setSeHablitado(IdEvento, Tipo, Precio, CapacidadMax);
     }
 
     @DeleteMapping
-    public boolean deleteSeHablitado(Integer idEvento, String tipo) {
+    public boolean deleteSeHablitado(Integer idEvento, SectorTipo tipo) {
         return seHablitaService.deleteSeHablitado(idEvento, tipo);
     }
 

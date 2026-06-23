@@ -6,6 +6,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 
 import com.obligatorio.bdii.model.SeHabilita;
+import com.obligatorio.bdii.model.SectorTipo;
 
 @Service
 public class seHablitaService {
@@ -16,15 +17,15 @@ public class seHablitaService {
         this.jdbcTemplate = jdbcTemplate;
     }
 
-    public boolean setSeHablitado(Integer IdEvento, String Tipo, Integer Precio, Integer CapacidadMax) {
+    public boolean setSeHablitado(Integer IdEvento, SectorTipo Tipo, Integer Precio, Integer CapacidadMax) {
         Integer IdEstadio = jdbcTemplate.queryForObject("select IdEstadio from Evento where Id = ?", Integer.class, IdEvento);
         String sql = "INSERT INTO Se_habilita (IdEvento, IdEstadio, Tipo, Precio, CapacidadHabilitada) VALUES (?, ?, ?, ?, ?)";
-        jdbcTemplate.update(sql, IdEvento, IdEstadio, Tipo, Precio, CapacidadMax);
+        jdbcTemplate.update(sql, IdEvento, IdEstadio, Tipo.name(), Precio, CapacidadMax);
         return true; 
     }
-    public boolean deleteSeHablitado(Integer IdEvento, String Tipo) {
+    public boolean deleteSeHablitado(Integer IdEvento, SectorTipo Tipo) {
         String sql = "DELETE FROM Se_habilita WHERE IdEvento = ? AND Tipo = ?";
-        jdbcTemplate.update(sql, IdEvento, Tipo);
+        jdbcTemplate.update(sql, IdEvento, Tipo.name());
         return true;
     }
 
@@ -33,7 +34,7 @@ public class seHablitaService {
         return jdbcTemplate.query(sql, (rs, rowNum) -> new SeHabilita(
                 rs.getInt("IdEvento"),
                 rs.getInt("IdEstadio"),
-                rs.getString("Tipo"),
+                SectorTipo.valueOf(rs.getString("Tipo")),
                 rs.getBigDecimal("Precio"),
                 rs.getInt("CapacidadHabilitada")
         ), idEvento);

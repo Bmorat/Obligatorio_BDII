@@ -11,7 +11,7 @@ public class SeHabilita {
 
     private Integer idEvento;
     private Integer idEstadio;
-    private String tipo;
+    private SectorTipo tipo;
     private BigDecimal precio;
     private Integer capacidadHabilitada;
 

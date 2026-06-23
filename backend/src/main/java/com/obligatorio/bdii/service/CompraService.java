@@ -44,7 +44,7 @@ public class CompraService {
         
         //Obtenemos el precio del evento-sector
         String sql = "SELECT Precio FROM Se_habilita WHERE idEvento = ? AND idEstadio = ? AND Tipo = ?";
-        BigDecimal precio = jdbcTemplate.queryForObject(sql, BigDecimal.class, request.idEvento(), request.idEstadio(), request.tipo());
+        BigDecimal precio = jdbcTemplate.queryForObject(sql, BigDecimal.class, request.idEvento(), request.idEstadio(), request.tipo().name());
         
         // Calculamos el total de la compra con la cantidad y la comision
         BigDecimal subTotal = precio.multiply(BigDecimal.valueOf(request.cantidad()));
@@ -73,7 +73,7 @@ public class CompraService {
             jdbcTemplate.update("INSERT INTO QR (IdQR) VALUES (?)", qr);
             jdbcTemplate.update(
                 "INSERT INTO Entrada (Estado, NumeroVecesTransferida, idCompra, idEvento, idEstadio, Tipo, IdQR) VALUES (?,?,?,?,?,?,?)",
-                "Activa", 0 , idCompra , request.idEvento(), request.idEstadio(), request.tipo(), qr
+                "Activa", 0 , idCompra , request.idEvento(), request.idEstadio(), request.tipo().name(), qr
             );
             
         }

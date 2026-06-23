@@ -1,11 +1,13 @@
 package com.obligatorio.bdii.dto;
 
+import com.obligatorio.bdii.model.SectorTipo;
+
 public record CompraRequest(
     String paisDocUsuario,
     String tipoDocUsuario,
     String numeroDocUsuario,
     Integer idEvento,
     Integer idEstadio,
-    String tipo, //sector :Tribuna, Platea, Palco
+    SectorTipo tipo, //sector: A, B, C, D
     Integer cantidad
 ) {}

@@ -15,7 +15,7 @@ public class Entrada {
     private Integer idCompra;
     private Integer idEvento;
     private Integer idEstadio;
-    private String tipo;
+    private SectorTipo tipo;
     private String idQR;
     private Integer idDispositivoValidacion;
     private String codigoAceptado;

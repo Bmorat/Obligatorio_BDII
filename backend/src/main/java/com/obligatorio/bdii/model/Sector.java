@@ -8,7 +8,7 @@ import lombok.ToString;
 public class Sector {
 
     private Integer idEstadio;
-    private String tipo;
+    private SectorTipo tipo;
     private Integer capacidad;
 
     public Sector() {}

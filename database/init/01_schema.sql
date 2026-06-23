@@ -86,7 +86,7 @@ CREATE TABLE Estadio (
 
 CREATE TABLE Sector (
     IdEstadio   INT         NOT NULL,
-    Tipo        VARCHAR(50) NOT NULL,
+    Tipo        VARCHAR(1)  NOT NULL CHECK (Tipo IN ('A','B','C','D')),
     Capacidad   INT         NOT NULL,
     CONSTRAINT PK_Sector PRIMARY KEY (IdEstadio, Tipo),
     CONSTRAINT FK_Sector_Estadio FOREIGN KEY (IdEstadio) REFERENCES Estadio(Id)
@@ -119,7 +119,7 @@ CREATE TABLE Juega (
 CREATE TABLE Se_habilita (
     IdEvento            INT            NOT NULL,
     IdEstadio           INT            NOT NULL,
-    Tipo                VARCHAR(50)    NOT NULL,
+    Tipo                VARCHAR(1)     NOT NULL,
     Precio              DECIMAL(10,2)  NOT NULL,
     CapacidadHabilitada INT            NOT NULL,
     CONSTRAINT PK_SeHabilita PRIMARY KEY (IdEvento, IdEstadio, Tipo),
@@ -161,7 +161,7 @@ CREATE TABLE Entrada (
     IdCompra                INT          NOT NULL,
     IdEvento                INT          NOT NULL,
     IdEstadio               INT          NOT NULL,
-    Tipo                    VARCHAR(50)  NOT NULL,
+    Tipo                    VARCHAR(1)   NOT NULL,
     IdQR                    VARCHAR(64)  NOT NULL,
     IdDispositivoValidacion INT          NULL,
     CodigoAceptado          VARCHAR(64)  NULL,
@@ -193,7 +193,7 @@ CREATE TABLE Asignado_a (
     NumeroDocFunc VARCHAR(30) NOT NULL,
     IdEvento      INT         NOT NULL,
     IdEstadio     INT         NOT NULL,
-    Tipo          VARCHAR(50) NOT NULL,
+    Tipo          VARCHAR(1)  NOT NULL,
     CONSTRAINT PK_AsignadoA PRIMARY KEY (PaisDocFunc, TipoDocFunc, NumeroDocFunc, IdEvento, IdEstadio, Tipo),
     CONSTRAINT FK_AsignadoA_Funcionario FOREIGN KEY (PaisDocFunc, TipoDocFunc, NumeroDocFunc) REFERENCES Funcionario_Validacion(PaisDoc, TipoDoc, NumeroDoc),
     CONSTRAINT FK_AsignadoA_SeHabilita FOREIGN KEY (IdEvento, IdEstadio, Tipo) REFERENCES Se_habilita(IdEvento, IdEstadio, Tipo)
