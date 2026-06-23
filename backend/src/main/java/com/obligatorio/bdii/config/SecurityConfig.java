@@ -34,6 +34,7 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.POST, "/api/auth/login", "/api/auth/registro").permitAll()
                         .requestMatchers("/api/helloworld", "/api/database/status", "/error").permitAll()
                         .requestMatchers("/api/database/query").hasRole("ADMIN_SEDE")
+                        .requestMatchers(HttpMethod.GET, "/api/reportes/**").hasRole("ADMIN_SEDE")
                         .anyRequest().authenticated())
                 .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
                 .build();
