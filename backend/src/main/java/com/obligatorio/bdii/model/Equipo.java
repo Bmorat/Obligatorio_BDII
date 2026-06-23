@@ -9,6 +9,7 @@ public class Equipo {
 
     private Integer id;
     private String nombreDeEquipo;
+    private String rol;
 
     public Equipo() {}
 }
