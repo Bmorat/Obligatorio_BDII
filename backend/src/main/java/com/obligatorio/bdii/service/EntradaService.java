@@ -6,6 +6,9 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.UUID;
 
+import org.springframework.scheduling.annotation.Scheduled;
+
+
 import com.obligatorio.bdii.dto.ValidarEntradaRequest;
 import com.obligatorio.bdii.model.Entrada;
 import com.obligatorio.bdii.model.SectorTipo;
@@ -131,5 +134,20 @@ public class EntradaService {
 
         return ResponseEntity.ok(qrNuevo);
     }
+
+    @Scheduled(fixedRate = 30000)
+public void renovarTodosLosQR() {
+    List<String> qrsActivos = jdbcTemplate.query(
+        "SELECT IdQR FROM Entrada WHERE Estado = 'Activa'",
+        (rs, rowNum) -> rs.getString("IdQR")
+    );
+
+    for (String qrViejo : qrsActivos) {
+        String qrNuevo = UUID.randomUUID().toString();
+        jdbcTemplate.update("INSERT INTO QR (IdQR) VALUES (?)", qrNuevo);
+        jdbcTemplate.update("UPDATE Entrada SET IdQR = ? WHERE IdQR = ?", qrNuevo, qrViejo);
+        jdbcTemplate.update("DELETE FROM QR WHERE IdQR = ?", qrViejo);
+    }
+}
 
 }
