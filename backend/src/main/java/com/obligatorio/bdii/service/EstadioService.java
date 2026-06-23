@@ -71,5 +71,6 @@ public class EstadioService {
                 rs.getString("TipoDocAdmin"),
                 rs.getString("NumeroDocAdmin")), paisDoc, tipoDoc, numeroDoc);
     }
+
 }
     

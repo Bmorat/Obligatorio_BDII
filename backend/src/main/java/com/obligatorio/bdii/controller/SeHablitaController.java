@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -24,12 +25,12 @@ public class SeHablitaController {
     }
 
     @PostMapping
-    public boolean setSeHablitado(Integer IdEvento, SectorTipo Tipo, Integer Precio, Integer CapacidadMax) {
+    public boolean setSeHablitado(@RequestParam Integer IdEvento, @RequestParam SectorTipo Tipo, @RequestParam Integer Precio, @RequestParam Integer CapacidadMax) {
         return seHablitaService.setSeHablitado(IdEvento, Tipo, Precio, CapacidadMax);
     }
 
     @DeleteMapping
-    public boolean deleteSeHablitado(Integer idEvento, SectorTipo tipo) {
+    public boolean deleteSeHablitado(@RequestParam("IdEvento") Integer idEvento, @RequestParam("Tipo") SectorTipo tipo) {
         return seHablitaService.deleteSeHablitado(idEvento, tipo);
     }
 

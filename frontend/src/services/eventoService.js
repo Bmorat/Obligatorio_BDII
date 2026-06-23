@@ -46,6 +46,8 @@ export function getSectores(idEvento) {
   return fetchJson(`/api/eventos/${idEvento}/sectores`);
 }
 
+
+
 export function habilitarSector(data) {
   return fetchJson('/api/SeHablita', {
     method: 'POST',

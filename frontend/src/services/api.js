@@ -35,13 +35,12 @@ export async function fetchJson(url, options = {}) {
     if (qs) fullUrl += `?${qs}`;
   }
 
+  const headers = { ...authHeaders(), ...options.headers };
+  if (body) headers['Content-Type'] = 'application/json';
+
   const response = await fetch(fullUrl, {
     method,
-    headers: {
-      'Content-Type': 'application/json',
-      ...authHeaders(),
-      ...options.headers,
-    },
+    headers,
     body: body ? JSON.stringify(body) : undefined,
   });
 

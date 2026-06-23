@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import * as eventoService from '../services/eventoService';
 
+const SECTORES = ['A', 'B', 'C', 'D'];
+
 export default function SectorManagerModal({ evento, estadio, onClose }) {
   const [sectoresHabilitados, setSectoresHabilitados] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
-
-  const SECTORES_DISPONIBLES = ['Tribuna', 'Platea', 'Campo'];
 
   useEffect(() => {
     eventoService.getSectores(evento.id)
@@ -23,23 +23,23 @@ export default function SectorManagerModal({ evento, estadio, onClose }) {
     return sectoresHabilitados.find((s) => s.tipo === tipo);
   }
 
-  async function toggleSector(tipo) {
-    const habilitado = isHabilitado(tipo);
+  async function toggleSector(codigo) {
+    const habilitado = isHabilitado(codigo);
 
     try {
       if (habilitado) {
         await eventoService.deshabilitarSector({
           idEvento: evento.id,
-          tipo,
+          tipo: codigo,
         });
       } else {
-        const precio = prompt(`Precio para ${tipo}:`, '500');
-        const capacidad = prompt(`Capacidad habilitada para ${tipo}:`, '5000');
+        const precio = prompt(`Precio para sector ${codigo}:`, '500');
+        const capacidad = prompt(`Capacidad habilitada para sector ${codigo}:`, '5000');
         if (!precio || !capacidad) return;
 
         await eventoService.habilitarSector({
           idEvento: evento.id,
-          tipo,
+          tipo: codigo,
           precio: Number(precio),
           capacidadHabilitada: Number(capacidad),
         });
@@ -76,12 +76,12 @@ export default function SectorManagerModal({ evento, estadio, onClose }) {
               </tr>
             </thead>
             <tbody>
-              {SECTORES_DISPONIBLES.map((tipo) => {
-                const data = getSectorData(tipo);
+              {SECTORES.map((codigo) => {
+                const data = getSectorData(codigo);
                 const habilitado = !!data;
                 return (
-                  <tr key={tipo}>
-                    <td><strong>{tipo}</strong></td>
+                  <tr key={codigo}>
+                    <td><strong>{codigo}</strong></td>
                     <td>
                       <span className={`badge ${habilitado ? 'badge--on' : 'badge--off'}`}>
                         {habilitado ? 'Habilitado' : 'Deshabilitado'}
@@ -92,7 +92,7 @@ export default function SectorManagerModal({ evento, estadio, onClose }) {
                     <td>
                       <button
                         className={`btn-icon ${habilitado ? 'btn-icon--danger' : 'btn-icon--success'}`}
-                        onClick={() => toggleSector(tipo)}
+                        onClick={() => toggleSector(codigo)}
                       >
                         {habilitado ? 'Deshabilitar' : 'Habilitar'}
                       </button>
