@@ -11,6 +11,7 @@ import java.time.LocalTime;
 
 import com.obligatorio.bdii.model.Evento;
 import com.obligatorio.bdii.model.SeHabilita;
+import com.obligatorio.bdii.model.SectorTipo;
 
 import java.util.List;
 
@@ -65,7 +66,7 @@ public class EventoService {
                SeHabilita sh= new SeHabilita();
                sh.setIdEvento(rs.getInt("IdEvento"));
                sh.setIdEstadio(rs.getInt("IdEstadio"));
-               sh.setTipo(rs.getString("Tipo"));
+               sh.setTipo(SectorTipo.valueOf(rs.getString("Tipo")));
                sh.setPrecio(rs.getBigDecimal("Precio"));
                sh.setCapacidadHabilitada(rs.getInt("CapacidadHabilitada"));
 

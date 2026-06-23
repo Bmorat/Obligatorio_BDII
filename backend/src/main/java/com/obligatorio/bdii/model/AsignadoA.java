@@ -12,7 +12,7 @@ public class AsignadoA {
     private String numeroDocFunc;
     private Integer idEvento;
     private Integer idEstadio;
-    private String tipo;
+    private SectorTipo tipo;
 
     public AsignadoA() {}
 }

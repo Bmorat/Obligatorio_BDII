@@ -90,11 +90,13 @@ INSERT IGNORE INTO Estadio (Id, Nombre, Ubicacion, PaisDocAdmin, TipoDocAdmin, N
 
 -- Sector
 INSERT IGNORE INTO Sector (IdEstadio, Tipo, Capacidad) VALUES
-(1, 'Tribuna', 15000), (1, 'Platea', 8000), (1, 'Palco', 500),
-(2, 'Tribuna', 12000), (2, 'Platea', 6000), (2, 'Palco', 400),
-(3, 'Tribuna', 8000),  (3, 'Platea', 4000), (3, 'Palco', 300),
-(4, 'Tribuna', 5000),  (4, 'Platea', 2500), (4, 'Palco', 200),
-(5, 'Tribuna', 7000),  (5, 'Platea', 3500), (5, 'Palco', 250);
+(1, 'A', 15000), (1, 'B', 8000), (1, 'C', 500),
+(2, 'A', 12000), (2, 'B', 6000), (2, 'C', 400),
+(3, 'A', 8000),  (3, 'B', 4000), (3, 'C', 300),
+(4, 'A', 5000),  (4, 'B', 2500), (4, 'C', 200),
+(5, 'A', 7000),  (5, 'B', 3500), (5, 'C', 250),
+(1, 'D', 300),  (2, 'D', 250),  (3, 'D', 200),
+(4, 'D', 150),  (5, 'D', 180);
 
 -- Evento
 INSERT IGNORE INTO Evento (Id, Fecha, Hora, IdEstadio) VALUES
@@ -114,16 +116,18 @@ INSERT IGNORE INTO Juega (IdEvento, IdEquipo, Rol) VALUES
 
 -- Se_habilita
 INSERT IGNORE INTO Se_habilita (IdEvento, IdEstadio, Tipo, Precio, CapacidadHabilitada) VALUES
-(1, 1, 'Tribuna', 500.00,  10000),
-(1, 1, 'Platea',  1200.00, 5000),
-(1, 1, 'Palco',   2500.00, 200),
-(2, 2, 'Tribuna', 600.00,  8000),
-(2, 2, 'Platea',  1500.00, 4000),
-(3, 1, 'Tribuna', 500.00,  10000),
-(3, 1, 'Platea',  1200.00, 5000),
-(4, 3, 'Tribuna', 400.00,  6000),
-(5, 2, 'Tribuna', 600.00,  8000),
-(5, 2, 'Platea',  1500.00, 4000);
+(1, 1, 'A', 500.00,  10000),
+(1, 1, 'B',  1200.00, 5000),
+(1, 1, 'C',   2500.00, 200),
+(2, 2, 'A', 600.00,  8000),
+(2, 2, 'B',  1500.00, 4000),
+(3, 1, 'A', 500.00,  10000),
+(3, 1, 'B',  1200.00, 5000),
+(4, 3, 'A', 400.00,  6000),
+(5, 2, 'A', 600.00,  8000),
+(5, 2, 'B',  1500.00, 4000),
+(1, 1, 'D',  4000.00, 200),
+(2, 2, 'D',  4500.00, 150);
 
 -- Comision
 INSERT IGNORE INTO Comision (IdComision, Vigente, Fecha, Porcentaje) VALUES
@@ -148,21 +152,21 @@ INSERT IGNORE INTO Compra (Id, Estado, Fecha, MontoTotal, PaisDocUsuario, TipoDo
 
 -- Entrada
 INSERT IGNORE INTO Entrada (IdEntrada, Estado, NumeroVecesTransferida, IdCompra, IdEvento, IdEstadio, Tipo, IdQR) VALUES
-(1,  'Activa',      0, 1, 1, 1, 'Tribuna', 'QR-001'),
-(2,  'Activa',      0, 1, 1, 1, 'Tribuna', 'QR-002'),
-(3,  'Transferida', 1, 1, 1, 1, 'Tribuna', 'QR-003'),
-(4,  'Activa',      0, 2, 2, 2, 'Platea',  'QR-004'),
-(5,  'Usada',       0, 2, 2, 2, 'Platea',  'QR-005'),
-(6,  'Activa',      0, 3, 1, 1, 'Tribuna', 'QR-006'),
-(7,  'Cancelada',   0, 3, 1, 1, 'Tribuna', 'QR-007'),
-(8,  'Activa',      0, 4, 4, 3, 'Tribuna', 'QR-008'),
-(9,  'Activa',      0, 4, 4, 3, 'Tribuna', 'QR-009'),
-(10, 'Usada',       0, 4, 4, 3, 'Tribuna', 'QR-010'),
-(11, 'Usada',       0, 4, 4, 3, 'Tribuna', 'QR-011'),
-(12, 'Cancelada',   0, 5, 5, 2, 'Tribuna', 'QR-012'),
-(13, 'Cancelada',   0, 5, 5, 2, 'Tribuna', 'QR-013'),
-(14, 'Activa',      0, 6, 2, 2, 'Platea',  'QR-014'),
-(15, 'Activa',      0, 6, 2, 2, 'Platea',  'QR-015');
+(1,  'Activa',      0, 1, 1, 1, 'A', 'QR-001'),
+(2,  'Activa',      0, 1, 1, 1, 'A', 'QR-002'),
+(3,  'Transferida', 1, 1, 1, 1, 'A', 'QR-003'),
+(4,  'Activa',      0, 2, 2, 2, 'B',  'QR-004'),
+(5,  'Usada',       0, 2, 2, 2, 'B',  'QR-005'),
+(6,  'Activa',      0, 3, 1, 1, 'A', 'QR-006'),
+(7,  'Cancelada',   0, 3, 1, 1, 'A', 'QR-007'),
+(8,  'Activa',      0, 4, 4, 3, 'A', 'QR-008'),
+(9,  'Activa',      0, 4, 4, 3, 'A', 'QR-009'),
+(10, 'Usada',       0, 4, 4, 3, 'A', 'QR-010'),
+(11, 'Usada',       0, 4, 4, 3, 'A', 'QR-011'),
+(12, 'Cancelada',   0, 5, 5, 2, 'A', 'QR-012'),
+(13, 'Cancelada',   0, 5, 5, 2, 'A', 'QR-013'),
+(14, 'Activa',      0, 6, 2, 2, 'B',  'QR-014'),
+(15, 'Activa',      0, 6, 2, 2, 'B',  'QR-015');
 
 -- Transferencia
 INSERT IGNORE INTO Transferencia (IdTransferencia, FechaTransferencia, EstadoTransferencia, IdEntrada, PaisDocUsuario, TipoDocUsuario, NumeroDocUsuario) VALUES
@@ -173,7 +177,7 @@ INSERT IGNORE INTO Transferencia (IdTransferencia, FechaTransferencia, EstadoTra
 
 -- Asignado_a
 INSERT IGNORE INTO Asignado_a (PaisDocFunc, TipoDocFunc, NumeroDocFunc, IdEvento, IdEstadio, Tipo) VALUES
-('URY', 'CI', '89012345', 1, 1, 'Tribuna'),
-('URY', 'CI', '89012345', 1, 1, 'Platea'),
-('URY', 'CI', '90123456', 2, 2, 'Tribuna'),
-('URY', 'CI', '01234567', 4, 3, 'Tribuna');
+('URY', 'CI', '89012345', 1, 1, 'A'),
+('URY', 'CI', '89012345', 1, 1, 'B'),
+('URY', 'CI', '90123456', 2, 2, 'A'),
+('URY', 'CI', '01234567', 4, 3, 'A');

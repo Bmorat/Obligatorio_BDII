@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 import com.obligatorio.bdii.model.Entrada;
+import com.obligatorio.bdii.model.SectorTipo;
 
 @Service
 public class EntradaService {
@@ -34,7 +35,7 @@ public class EntradaService {
             e.setIdCompra(rs.getInt("idCompra"));
             e.setIdEvento(rs.getInt("idEvento"));
             e.setIdEstadio(rs.getInt("idEstadio"));
-            e.setTipo(rs.getString("tipo"));
+            e.setTipo(SectorTipo.valueOf(rs.getString("tipo")));
             e.setIdQR(rs.getString("idQR"));
             return e;
          },paisDocUsuario,tipoDocUsuario,numeroDocUsuario, paisDocUsuario, tipoDocUsuario, numeroDocUsuario);
