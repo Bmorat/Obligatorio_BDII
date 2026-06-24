@@ -62,10 +62,10 @@ INSERT IGNORE INTO Administrador_Sede (PaisDoc, TipoDoc, NumeroDoc, FechaAsignac
 
 -- Usuario_General
 INSERT IGNORE INTO Usuario_General (PaisDoc, TipoDoc, NumeroDoc, FechaRegistro, EstadoVerificacion) VALUES
-('URY', 'CI', '12345678', '2024-01-15', 'Verificado'),
-('URY', 'CI', '34567890', '2024-02-20', 'Verificado'),
-('URY', 'CI', '56789012', '2024-03-10', 'Pendiente'),
-('URY', 'CI', '78901234', '2024-04-05', 'Verificado');
+('URY', 'CI', '12345678', '2024-01-15', TRUE),
+('URY', 'CI', '34567890', '2024-02-20', TRUE),
+('URY', 'CI', '56789012', '2024-03-10', FALSE),
+('URY', 'CI', '78901234', '2024-04-05', TRUE);
 
 -- Funcionario_Validacion
 INSERT IGNORE INTO Funcionario_Validacion (PaisDoc, TipoDoc, NumeroDoc, NumeroLegajo) VALUES
