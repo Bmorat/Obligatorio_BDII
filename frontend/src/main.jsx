@@ -3,6 +3,7 @@ import { createRoot } from 'react-dom/client';
 import { getSession } from './services/api';
 import LoginView from './components/LoginView';
 import AdminDashboard from './components/AdminDashboard';
+import UserDashboard from './components/UserDashboard';
 import './styles.css';
 
 function App() {
@@ -18,6 +19,10 @@ function App() {
 
   if (session.rol === 'ROLE_ADMIN_SEDE') {
     return <AdminDashboard session={session} onLogout={() => setSession(null)} />;
+  }
+
+  if (session.rol === 'ROLE_USUARIO') {
+    return <UserDashboard session={session} onLogout={() => setSession(null)} />;
   }
 
   return (
