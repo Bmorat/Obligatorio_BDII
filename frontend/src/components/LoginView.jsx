@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { setSession } from '../services/api';
 
-export default function LoginView({ onLogin }) {
+export default function LoginView({ onLogin, onNavigate }) {
   const [form, setForm] = useState({
     correo: 'maria.garcia@email.com',
     password: 'password123',
@@ -88,6 +88,13 @@ export default function LoginView({ onLogin }) {
             <button className="primary-button" disabled={status === 'loading'} type="submit">
               {status === 'loading' ? 'Ingresando...' : 'Ingresar'}
             </button>
+
+            <p className="register-link">
+              ¿No tenés cuenta?{' '}
+              <button type="button" className="link-button" onClick={() => onNavigate('register')}>
+                Registrate
+              </button>
+            </p>
           </form>
         </div>
       </section>

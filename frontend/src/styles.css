@@ -218,6 +218,154 @@ button, input, select {
   line-height: 1.45;
 }
 
+/* ─── Register ─── */
+
+.register-surface {
+  min-height: 680px;
+}
+
+.register-auth-panel {
+  align-items: start;
+  overflow-y: auto;
+}
+
+.register-form {
+  display: grid;
+  gap: 6px;
+}
+
+.register-form h2 {
+  margin-bottom: 10px;
+  color: #182232;
+  font-size: 1.7rem;
+  line-height: 1.1;
+  overflow-wrap: anywhere;
+}
+
+.form-section-title {
+  margin: 14px 0 4px;
+  color: var(--color-text-secondary);
+  font-size: 0.76rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+
+.form-grid--3col {
+  grid-template-columns: 1fr 1fr 1fr;
+}
+
+.register-form label {
+  display: grid;
+  gap: 6px;
+  color: #334056;
+  font-size: 0.88rem;
+  font-weight: 700;
+}
+
+.register-form input {
+  width: 100%;
+  min-height: 44px;
+  border: 1px solid #c7d0dd;
+  border-radius: 6px;
+  background: var(--color-surface);
+  color: var(--color-text);
+  padding: 0 14px;
+  outline: none;
+}
+
+.register-form input:focus {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px rgb(37 115 124 / 18%);
+}
+
+.phone-list {
+  display: grid;
+  gap: 10px;
+}
+
+.phone-row {
+  display: flex;
+  align-items: flex-end;
+  gap: 8px;
+}
+
+.phone-label {
+  flex: 1;
+}
+
+.add-phone-btn {
+  justify-self: start;
+  min-height: 38px;
+  font-size: 0.85rem;
+  margin-bottom: 4px;
+}
+
+.register-form .primary-button {
+  margin-top: 10px;
+}
+
+.register-link {
+  margin: 8px 0 0;
+  color: var(--color-text-secondary);
+  font-size: 0.9rem;
+  text-align: center;
+}
+
+.link-button {
+  border: 0;
+  background: none;
+  color: var(--color-primary);
+  font-size: 0.9rem;
+  font-weight: 700;
+  padding: 0;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.link-button:hover {
+  color: var(--color-primary-hover);
+}
+
+.success-message {
+  margin: 0;
+  border-left: 4px solid var(--color-success);
+  background: var(--color-success-bg);
+  color: #155f2b;
+  padding: 12px 14px;
+  font-size: 0.92rem;
+  line-height: 1.4;
+}
+
+.register-success {
+  display: grid;
+  gap: 22px;
+}
+
+.register-success h2 {
+  color: #182232;
+  font-size: 1.7rem;
+  line-height: 1.1;
+  overflow-wrap: anywhere;
+}
+
+@media (max-width: 760px) {
+  .form-grid,
+  .form-grid--3col {
+    grid-template-columns: 1fr;
+  }
+
+  .register-auth-panel {
+    align-items: center;
+  }
+}
+
 /* ─── Admin Shell ─── */
 
 .admin-shell {
