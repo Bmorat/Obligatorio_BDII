@@ -584,6 +584,401 @@ button, input, select {
   color: #888;
 }
 
+/* ─── User Dashboard ─── */
+
+.user-shell {
+  min-height: 100vh;
+  background: #f4f6f8;
+}
+
+.user-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 76px;
+  padding: 14px 32px;
+  background: #12343b;
+  color: #ffffff;
+}
+
+.user-header h1 {
+  margin: 3px 0 0;
+  font-size: 1.35rem;
+}
+
+.user-header-right,
+.user-identity {
+  display: flex;
+  align-items: center;
+}
+
+.user-header-right {
+  gap: 20px;
+}
+
+.user-identity {
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 3px;
+}
+
+.user-identity strong {
+  font-size: 0.88rem;
+}
+
+.user-identity span {
+  color: #c9d9dc;
+  font-size: 0.76rem;
+}
+
+.user-header .secondary-button {
+  min-height: 38px;
+}
+
+.user-tabs {
+  display: flex;
+  gap: 4px;
+  padding: 0 32px;
+  border-bottom: 1px solid var(--color-border);
+  background: var(--color-surface);
+  overflow-x: auto;
+}
+
+.user-tab {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 52px;
+  border: 0;
+  border-bottom: 3px solid transparent;
+  background: transparent;
+  color: var(--color-text-secondary);
+  padding: 0 18px;
+  font-size: 0.9rem;
+  font-weight: 700;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.user-tab:hover,
+.user-tab--active {
+  color: var(--color-primary);
+}
+
+.user-tab--active {
+  border-bottom-color: var(--color-primary);
+}
+
+.tab-count {
+  display: inline-grid;
+  min-width: 21px;
+  height: 21px;
+  place-items: center;
+  border-radius: 50%;
+  background: var(--color-danger);
+  color: #ffffff;
+  padding: 0 5px;
+  font-size: 0.7rem;
+}
+
+.user-main {
+  width: min(100%, 1240px);
+  margin: 0 auto;
+  padding: 24px 32px 48px;
+}
+
+.user-summary {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  background: var(--color-surface);
+}
+
+.user-summary div {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 76px;
+  padding: 18px 22px;
+  border-right: 1px solid var(--color-border);
+}
+
+.user-summary div:last-child {
+  border-right: 0;
+}
+
+.user-summary span {
+  color: var(--color-text-secondary);
+  font-size: 0.84rem;
+  font-weight: 700;
+}
+
+.user-summary strong {
+  font-size: 1.7rem;
+}
+
+.user-section {
+  margin-top: 28px;
+}
+
+.section-heading {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+
+.section-heading h2 {
+  margin: 0;
+  font-size: 1.35rem;
+}
+
+.section-heading > span {
+  color: var(--color-text-secondary);
+  font-size: 0.84rem;
+}
+
+.event-grid,
+.ticket-list,
+.transfer-list {
+  display: grid;
+  gap: 12px;
+}
+
+.event-ticket {
+  display: grid;
+  grid-template-columns: 92px minmax(0, 1fr) auto;
+  align-items: center;
+  min-height: 132px;
+  overflow: hidden;
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  background: var(--color-surface);
+}
+
+.event-date {
+  display: grid;
+  height: 100%;
+  place-content: center;
+  text-align: center;
+  background: #e8f2f3;
+  color: #164f56;
+}
+
+.event-date strong {
+  font-size: 1.8rem;
+  line-height: 1;
+}
+
+.event-date span {
+  margin-top: 4px;
+  font-size: 0.76rem;
+  font-weight: 800;
+}
+
+.event-date small {
+  margin-top: 8px;
+  font-weight: 700;
+}
+
+.event-info {
+  min-width: 0;
+  padding: 18px 22px;
+}
+
+.event-info p,
+.purchase-context {
+  margin: 0 0 7px;
+  color: var(--color-text-secondary);
+  font-size: 0.82rem;
+}
+
+.event-info h3 {
+  margin: 0;
+  font-size: 1.08rem;
+}
+
+.sector-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 14px;
+}
+
+.sector-row span {
+  border: 1px solid #c9dfe2;
+  border-radius: 4px;
+  background: #f4fafb;
+  color: #245e65;
+  padding: 4px 8px;
+  font-size: 0.74rem;
+  font-weight: 700;
+}
+
+.event-buy-button {
+  min-width: 112px;
+  margin-right: 22px;
+}
+
+.owned-ticket {
+  display: grid;
+  grid-template-columns: 100px minmax(320px, 1.4fr) minmax(220px, 1fr) auto;
+  align-items: center;
+  gap: 20px;
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  background: var(--color-surface);
+  padding: 18px 20px;
+}
+
+.ticket-number,
+.ticket-data div,
+.qr-code-value,
+.transfer-row > div:not(.transfer-actions) {
+  display: grid;
+  gap: 4px;
+}
+
+.ticket-number span,
+.ticket-data span,
+.qr-code-value span,
+.transfer-row span {
+  color: var(--color-text-secondary);
+  font-size: 0.7rem;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.ticket-number strong {
+  font-size: 1.3rem;
+}
+
+.ticket-data {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.ticket-data strong,
+.transfer-row strong {
+  font-size: 0.86rem;
+}
+
+.qr-code-value {
+  min-width: 0;
+}
+
+.qr-code-value code {
+  overflow: hidden;
+  color: #385267;
+  font-size: 0.72rem;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.status-text--activa {
+  color: var(--color-success);
+}
+
+.owned-ticket .secondary-button,
+.transfer-actions .primary-button,
+.transfer-actions .secondary-button {
+  min-height: 38px;
+}
+
+.secondary-button:disabled,
+.primary-button:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+.data-table-wrap {
+  overflow-x: auto;
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  background: var(--color-surface);
+}
+
+.user-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.88rem;
+}
+
+.user-table th,
+.user-table td {
+  padding: 14px 16px;
+  border-bottom: 1px solid var(--color-border);
+  text-align: left;
+}
+
+.user-table th {
+  color: var(--color-text-secondary);
+  font-size: 0.72rem;
+  text-transform: uppercase;
+}
+
+.user-table tr:last-child td {
+  border-bottom: 0;
+}
+
+.money-cell {
+  font-weight: 800;
+}
+
+.transfer-row {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(100px, 1fr)) auto;
+  align-items: center;
+  gap: 18px;
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  background: var(--color-surface);
+  padding: 16px 18px;
+}
+
+.transfer-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.success-banner {
+  margin-top: 16px;
+  border-left: 4px solid var(--color-success);
+  background: var(--color-success-bg);
+  color: #155f2b;
+  padding: 12px 16px;
+  font-size: 0.9rem;
+}
+
+.user-feedback {
+  margin: 16px 0 0;
+}
+
+.purchase-context {
+  margin-bottom: 20px;
+}
+
+.purchase-total {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 4px 0 18px;
+  border-top: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border);
+  padding: 15px 0;
+}
+
+.purchase-total span {
+  color: var(--color-text-secondary);
+  font-size: 0.84rem;
+}
+
+.purchase-total strong {
+  font-size: 1.2rem;
+}
+
 /* ─── Reporte Modal ─── */
 
 .reporte-modal {
@@ -798,5 +1193,74 @@ button, input, select {
 
   .admin-main {
     padding: 20px;
+  }
+
+  .user-header {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 14px;
+    padding: 16px 20px;
+  }
+
+  .user-header-right {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .user-identity {
+    align-items: flex-start;
+  }
+
+  .user-tabs {
+    padding: 0 8px;
+  }
+
+  .user-main {
+    padding: 18px 16px 36px;
+  }
+
+  .user-summary {
+    grid-template-columns: 1fr;
+  }
+
+  .user-summary div {
+    min-height: 58px;
+    border-right: 0;
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .user-summary div:last-child {
+    border-bottom: 0;
+  }
+
+  .event-ticket {
+    grid-template-columns: 76px minmax(0, 1fr);
+  }
+
+  .event-buy-button {
+    grid-column: 1 / -1;
+    width: auto;
+    margin: 0 16px 16px;
+  }
+
+  .event-info {
+    padding: 16px;
+  }
+
+  .owned-ticket {
+    grid-template-columns: 1fr;
+    gap: 15px;
+  }
+
+  .ticket-data {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .transfer-row {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .transfer-actions {
+    grid-column: 1 / -1;
   }
 }
