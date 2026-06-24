@@ -240,4 +240,37 @@ BEGIN
   CALL sp_check_horario(NEW.Id, NEW.Fecha, NEW.Hora, NEW.IdEstadio);
 END//
 
+-- 6h. Un equipo no puede participar en dos eventos el mismo día
+CREATE TRIGGER TRG_Juega_CheckEquipoMismoDia
+BEFORE INSERT ON Juega
+FOR EACH ROW
+BEGIN
+  DECLARE conflict INT;
+  SELECT COUNT(*) INTO conflict
+  FROM Juega j
+  INNER JOIN Evento e ON j.IdEvento = e.Id
+  WHERE j.IdEquipo = NEW.IdEquipo
+    AND j.IdEvento != NEW.IdEvento
+    AND e.Fecha = (SELECT Fecha FROM Evento WHERE Id = NEW.IdEvento);
+  IF conflict > 0 THEN
+    SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'El equipo ya participa en otro evento en esta fecha';
+  END IF;
+END//
+
+CREATE TRIGGER TRG_Juega_CheckEquipoMismoDia_Update
+BEFORE UPDATE ON Juega
+FOR EACH ROW
+BEGIN
+  DECLARE conflict INT;
+  SELECT COUNT(*) INTO conflict
+  FROM Juega j
+  INNER JOIN Evento e ON j.IdEvento = e.Id
+  WHERE j.IdEquipo = NEW.IdEquipo
+    AND j.IdEvento != NEW.IdEvento
+    AND e.Fecha = (SELECT Fecha FROM Evento WHERE Id = NEW.IdEvento);
+  IF conflict > 0 THEN
+    SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'El equipo ya participa en otro evento en esta fecha';
+  END IF;
+END//
+
 DELIMITER ;
