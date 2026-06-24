@@ -3,17 +3,26 @@ import * as eventoService from '../services/eventoService';
 
 const SECTORES = ['A', 'B', 'C', 'D'];
 
+const CAPACIDAD_DEFAULTS = { A: 5000, B: 5000, C: 200, D: 100 };
+
 export default function SectorManagerModal({ evento, estadio, onClose }) {
   const [sectoresHabilitados, setSectoresHabilitados] = useState([]);
+  const [capacidadesMax, setCapacidadesMax] = useState({});
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
 
   useEffect(() => {
-    eventoService.getSectores(evento.id)
-      .then(setSectoresHabilitados)
+    Promise.all([
+      eventoService.getSectores(evento.id),
+      eventoService.getCapacidadesSectores(estadio.id),
+    ])
+      .then(([sectores, capacidades]) => {
+        setSectoresHabilitados(sectores);
+        setCapacidadesMax(Object.fromEntries(capacidades.map((s) => [s.tipo, s.capacidad])));
+      })
       .catch((err) => setError(err.message))
       .finally(() => setLoading(false));
-  }, [evento.id]);
+  }, [evento.id, estadio]);
 
   function isHabilitado(tipo) {
     return sectoresHabilitados.some((s) => s.tipo === tipo);
@@ -34,7 +43,7 @@ export default function SectorManagerModal({ evento, estadio, onClose }) {
         });
       } else {
         const precio = prompt(`Precio para sector ${codigo}:`, '500');
-        const capacidad = prompt(`Capacidad habilitada para sector ${codigo}:`, '5000');
+        const capacidad = prompt(`Capacidad habilitada para sector ${codigo} (max: ${capacidadesMax[codigo]}):`, String(CAPACIDAD_DEFAULTS[codigo]));
         if (!precio || !capacidad) return;
 
         await eventoService.habilitarSector({
@@ -85,6 +94,7 @@ export default function SectorManagerModal({ evento, estadio, onClose }) {
                 <th>Estado</th>
                 <th>Precio</th>
                 <th>Capacidad</th>
+                <th>Capacidad Max</th>
                 <th>Accion</th>
               </tr>
             </thead>
@@ -102,6 +112,7 @@ export default function SectorManagerModal({ evento, estadio, onClose }) {
                     </td>
                     <td>{habilitado ? `$${data.precio}` : '-'}</td>
                     <td>{habilitado ? data.capacidadHabilitada : '-'}</td>
+                    <td>{capacidadesMax[codigo] ?? '-'}</td>
                     <td>
                       <button
                         className={`btn-icon ${habilitado ? 'btn-icon--danger' : 'btn-icon--success'}`}
