@@ -46,6 +46,10 @@ export function getSectores(idEvento) {
   return fetchJson(`/api/eventos/${idEvento}/sectores`);
 }
 
+export function getCapacidadesSectores(estadioId) {
+  return fetchJson(`/api/sectores?estadioId=${estadioId}`);
+}
+
 
 
 export function habilitarSector(data) {

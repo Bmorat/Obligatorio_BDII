@@ -69,7 +69,7 @@ public class RegistroService {
             request.tipoDoc(),
             request.numeroDoc(),
             Date.valueOf(LocalDate.now()),
-            "Pendiente"
+            false
         );
 
         // Insertar los teléfonos

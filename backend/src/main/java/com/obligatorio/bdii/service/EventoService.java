@@ -11,6 +11,7 @@ import java.time.LocalTime;
 
 import com.obligatorio.bdii.model.Evento;
 import com.obligatorio.bdii.model.SeHabilita;
+import com.obligatorio.bdii.model.Sector;
 import com.obligatorio.bdii.model.SectorTipo;
 
 import java.util.List;
@@ -59,20 +60,31 @@ public class EventoService {
     }
 
     public List<SeHabilita> obtenerSectoresPorEvento(Integer id){
-        String sql = "SELECT sh.IdEvento, sh.IdEstadio, sh.Tipo, sh.Precio, sh.CapacidadHabilitada " +
+        String sql = "SELECT sh.IdEvento, sh.IdEstadio, sh.Tipo, sh.Precio, sh.CapacidadHabilitada, s.Capacidad as CapacidadMaxima " +
                      "FROM Se_habilita sh " +
+                     "JOIN Sector s ON sh.IdEstadio = s.IdEstadio AND sh.Tipo = s.Tipo " +
                      "WHERE sh.IdEvento = ?";
         return jdbcTemplate.query(sql, (rs, rowNum) -> {
-               SeHabilita sh= new SeHabilita();
+               SeHabilita sh = new SeHabilita();
                sh.setIdEvento(rs.getInt("IdEvento"));
                sh.setIdEstadio(rs.getInt("IdEstadio"));
                sh.setTipo(SectorTipo.valueOf(rs.getString("Tipo")));
                sh.setPrecio(rs.getBigDecimal("Precio"));
                sh.setCapacidadHabilitada(rs.getInt("CapacidadHabilitada"));
-
                return sh;
         }, id);
 
+    }
+
+    public List<Sector> obtenerSectoresPorEstadio(Integer idEstadio){
+        String sql = "SELECT IdEstadio, Tipo, Capacidad FROM Sector WHERE IdEstadio = ?";
+        return jdbcTemplate.query(sql, (rs, rowNum) -> {
+            Sector s = new Sector();
+            s.setIdEstadio(rs.getInt("IdEstadio"));
+            s.setTipo(SectorTipo.valueOf(rs.getString("Tipo")));
+            s.setCapacidad(rs.getInt("Capacidad"));
+            return s;
+        }, idEstadio);
     }
 
     public boolean deleteEvento(Integer idEvento) {
