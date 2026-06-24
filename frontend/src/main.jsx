@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { createRoot } from 'react-dom/client';
 import { getSession } from './services/api';
 import LoginView from './components/LoginView';
+import RegisterView from './components/RegisterView';
 import AdminDashboard from './components/AdminDashboard';
 import FuncionarioDashboard from './components/FuncionarioDashboard';
 import UserDashboard from './components/UserDashboard';
@@ -9,13 +10,17 @@ import './styles.css';
 
 function App() {
   const [session, setSession] = useState(null);
+  const [authView, setAuthView] = useState('login');
 
   useEffect(() => {
     setSession(getSession());
   }, []);
 
   if (!session) {
-    return <LoginView onLogin={setSession} />;
+    if (authView === 'register') {
+      return <RegisterView onNavigate={setAuthView} />;
+    }
+    return <LoginView onLogin={setSession} onNavigate={setAuthView} />;
   }
 
   if (session.rol === 'ROLE_ADMIN_SEDE') {
