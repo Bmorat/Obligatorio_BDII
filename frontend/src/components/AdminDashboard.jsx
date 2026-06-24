@@ -1,7 +1,9 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import { clearSession } from '../services/api';
 import * as estadioService from '../services/estadioService';
+import * as reporteService from '../services/reporteService';
 import StadiumEvents from './StadiumEvents';
+import ReporteModal from './ReporteModal';
 
 export default function AdminDashboard({ session, onLogout }) {
   const [todosEstadios, setTodosEstadios] = useState([]);
@@ -9,6 +11,9 @@ export default function AdminDashboard({ session, onLogout }) {
   const [estadioActivo, setEstadioActivo] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
+  const [reporteModal, setReporteModal] = useState(null);
+  const [reporteData, setReporteData] = useState(null);
+  const [reporteLoading, setReporteLoading] = useState(false);
 
   const roleLabel = session.rol.replace('ROLE_', '').replaceAll('_', ' ');
 
@@ -42,6 +47,25 @@ export default function AdminDashboard({ session, onLogout }) {
     setEstadioActivo((prev) => (prev?.id === estadio.id ? null : estadio));
   }
 
+  async function abrirReporte(tipo) {
+    setReporteModal(tipo);
+    setReporteLoading(true);
+    setReporteData(null);
+    setError('');
+    try {
+      if (tipo === 'eventos') {
+        setReporteData(await reporteService.getEventosMasVendidos());
+      } else {
+        setReporteData(await reporteService.getMayoresCompradores());
+      }
+    } catch (err) {
+      setReporteData([]);
+      setError(err.message);
+    } finally {
+      setReporteLoading(false);
+    }
+  }
+
   return (
     <div className="admin-shell">
       <header className="admin-header">
@@ -52,6 +76,12 @@ export default function AdminDashboard({ session, onLogout }) {
         <div className="admin-header-right">
           <span className="admin-user">{session.correo}</span>
           <span className="admin-role-badge">{roleLabel}</span>
+          <button className="reporte-btn" type="button" onClick={() => abrirReporte('eventos')}>
+            Reporte: Eventos mas vendidos
+          </button>
+          <button className="reporte-btn" type="button" onClick={() => abrirReporte('compradores')}>
+            Ranking: Mayores compradores
+          </button>
           <button className="secondary-button" type="button" onClick={handleLogout}>
             Cerrar sesion
           </button>
@@ -116,6 +146,47 @@ export default function AdminDashboard({ session, onLogout }) {
           )}
         </main>
       </div>
+
+      {reporteModal === 'eventos' && (
+        <ReporteModal
+          titulo="Reporte: Eventos más vendidos"
+          columnas={[
+            { label: 'ID Evento', key: 'idEvento' },
+            { label: 'Fecha', key: 'fecha' },
+            { label: 'Hora', key: 'hora' },
+            { label: 'Total Entradas', key: 'totalEntradas' },
+            {
+              label: 'Total Remunerado',
+              key: 'totalRemunerado',
+              render: (val) => `$${Number(val).toLocaleString('es-UY', { minimumFractionDigits: 2 })}`,
+            },
+          ]}
+          data={reporteData}
+          loading={reporteLoading}
+          onClose={() => { setReporteModal(null); setError(''); }}
+        />
+      )}
+
+      {reporteModal === 'compradores' && (
+        <ReporteModal
+          titulo="Ranking: Mayores compradores"
+          columnas={[
+            { label: 'Correo', key: 'correo' },
+            { label: 'País Doc', key: 'paisDoc' },
+            { label: 'Tipo Doc', key: 'tipoDoc' },
+            { label: 'Número Doc', key: 'numeroDoc' },
+            { label: 'Total Entradas', key: 'totalEntradas' },
+            {
+              label: 'Total Gastado',
+              key: 'totalGastado',
+              render: (val) => `$${Number(val).toLocaleString('es-UY', { minimumFractionDigits: 2 })}`,
+            },
+          ]}
+          data={reporteData}
+          loading={reporteLoading}
+          onClose={() => { setReporteModal(null); setError(''); }}
+        />
+      )}
     </div>
   );
 }

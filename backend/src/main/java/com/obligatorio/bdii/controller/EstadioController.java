@@ -47,5 +47,4 @@ public class EstadioController {
         return estadioService.obtenerEventoPorEstadio(id);
     }
 
-   
 }
