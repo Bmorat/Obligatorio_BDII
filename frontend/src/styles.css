@@ -642,6 +642,119 @@ button, input, select {
 
 /* ─── Responsive ─── */
 
+/* ─── Validation (Funcionario) ─── */
+
+.admin-main--centered {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 64px;
+}
+
+.validation-card {
+  width: min(100%, 520px);
+  padding: 32px;
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  background: var(--color-surface);
+}
+
+.validation-card label {
+  display: block;
+  margin-bottom: 10px;
+  color: #334056;
+  font-size: 0.92rem;
+  font-weight: 700;
+}
+
+.qr-input {
+  width: 100%;
+  min-height: 52px;
+  border: 1px solid #c7d0dd;
+  border-radius: 6px;
+  background: var(--color-surface);
+  color: var(--color-text);
+  padding: 0 14px;
+  font-size: 1.1rem;
+  letter-spacing: 0.05em;
+  outline: none;
+  margin-bottom: 18px;
+}
+
+.qr-input:focus {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px rgb(37 115 124 / 18%);
+}
+
+.validation-card .primary-button {
+  width: 100%;
+  font-size: 1rem;
+}
+
+.validation-result {
+  width: min(100%, 520px);
+  margin-top: 20px;
+  border-radius: 8px;
+  padding: 20px 24px;
+  border-left: 4px solid;
+}
+
+.validation-result--ok {
+  background: var(--color-success-bg);
+  border-color: var(--color-success);
+}
+
+.validation-result--err {
+  background: var(--color-danger-bg);
+  border-color: var(--color-danger);
+}
+
+.validation-result-title {
+  display: block;
+  margin-bottom: 12px;
+  font-size: 1rem;
+}
+
+.validation-result--ok .validation-result-title {
+  color: var(--color-success);
+}
+
+.validation-result--err .validation-result-title {
+  color: var(--color-danger);
+}
+
+.validation-result-meta {
+  display: grid;
+  gap: 8px;
+  margin: 0;
+}
+
+.validation-result-meta div {
+  display: grid;
+  gap: 3px;
+}
+
+.validation-result-meta dt {
+  font-size: 0.72rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  color: var(--color-text-secondary);
+}
+
+.validation-result-meta dd {
+  margin: 0;
+  font-size: 0.92rem;
+  font-weight: 600;
+  color: var(--color-text);
+  word-break: break-all;
+}
+
+.validation-result-msg {
+  margin: 0;
+  font-size: 0.92rem;
+  color: #8f1d14;
+}
+
 @media (max-width: 760px) {
   .app-shell {
     align-items: stretch;
