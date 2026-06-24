@@ -29,6 +29,21 @@ public class seHablitaService {
         return true;
     }
 
+    public boolean forceDeleteSeHablitado(Integer IdEvento, SectorTipo Tipo) {
+        Integer IdEstadio = jdbcTemplate.queryForObject("SELECT IdEstadio FROM Evento WHERE Id = ?", Integer.class, IdEvento);
+
+        jdbcTemplate.update("DELETE FROM Asignado_a WHERE IdEvento = ? AND Tipo = ?",
+                IdEvento, Tipo.name());
+        jdbcTemplate.update("DELETE FROM Transferencia WHERE IdEntrada IN " +
+                        "(SELECT IdEntrada FROM Entrada WHERE IdEvento = ? AND IdEstadio = ? AND Tipo = ?)",
+                IdEvento, IdEstadio, Tipo.name());
+        jdbcTemplate.update("DELETE FROM Entrada WHERE IdEvento = ? AND IdEstadio = ? AND Tipo = ?",
+                IdEvento, IdEstadio, Tipo.name());
+        jdbcTemplate.update("DELETE FROM Se_habilita WHERE IdEvento = ? AND Tipo = ?",
+                IdEvento, Tipo.name());
+        return true;
+    }
+
     public List<SeHabilita> getSeHablita(Integer idEvento) {
         String sql = "SELECT IdEvento, IdEstadio, Tipo, Precio, CapacidadHabilitada FROM Se_habilita WHERE IdEvento = ?";
         return jdbcTemplate.query(sql, (rs, rowNum) -> new SeHabilita(

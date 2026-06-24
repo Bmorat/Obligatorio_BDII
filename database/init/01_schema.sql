@@ -50,7 +50,7 @@ CREATE TABLE Usuario_General (
     TipoDoc            VARCHAR(20) NOT NULL,
     NumeroDoc          VARCHAR(30) NOT NULL,
     FechaRegistro      DATE        NOT NULL,
-    EstadoVerificacion VARCHAR(30) NOT NULL,
+    EstadoVerificacion BOOLEAN NOT NULL DEFAULT FALSE,
     CONSTRAINT PK_UsuarioGeneral PRIMARY KEY (PaisDoc, TipoDoc, NumeroDoc),
     CONSTRAINT FK_UsuarioGeneral_Usuario FOREIGN KEY (PaisDoc, TipoDoc, NumeroDoc) REFERENCES Usuario(PaisDoc, TipoDoc, NumeroDoc)
 );
@@ -199,72 +199,3 @@ CREATE TABLE Asignado_a (
     CONSTRAINT FK_AsignadoA_SeHabilita FOREIGN KEY (IdEvento, IdEstadio, Tipo) REFERENCES Se_habilita(IdEvento, IdEstadio, Tipo)
 );
 
-DELIMITER //
-
-CREATE TRIGGER TRG_UsuarioGeneral_UnicoTipo
-BEFORE INSERT ON Usuario_General
-FOR EACH ROW
-BEGIN
-    IF EXISTS (
-        SELECT 1
-        FROM Administrador_Sede
-        WHERE PaisDoc = NEW.PaisDoc
-          AND TipoDoc = NEW.TipoDoc
-          AND NumeroDoc = NEW.NumeroDoc
-    ) OR EXISTS (
-        SELECT 1
-        FROM Funcionario_Validacion
-        WHERE PaisDoc = NEW.PaisDoc
-          AND TipoDoc = NEW.TipoDoc
-          AND NumeroDoc = NEW.NumeroDoc
-    ) THEN
-        SIGNAL SQLSTATE '45000'
-            SET MESSAGE_TEXT = 'El usuario ya tiene otro tipo asignado';
-    END IF;
-END//
-
-CREATE TRIGGER TRG_AdministradorSede_UnicoTipo
-BEFORE INSERT ON Administrador_Sede
-FOR EACH ROW
-BEGIN
-    IF EXISTS (
-        SELECT 1
-        FROM Usuario_General
-        WHERE PaisDoc = NEW.PaisDoc
-          AND TipoDoc = NEW.TipoDoc
-          AND NumeroDoc = NEW.NumeroDoc
-    ) OR EXISTS (
-        SELECT 1
-        FROM Funcionario_Validacion
-        WHERE PaisDoc = NEW.PaisDoc
-          AND TipoDoc = NEW.TipoDoc
-          AND NumeroDoc = NEW.NumeroDoc
-    ) THEN
-        SIGNAL SQLSTATE '45000'
-            SET MESSAGE_TEXT = 'El usuario ya tiene otro tipo asignado';
-    END IF;
-END//
-
-CREATE TRIGGER TRG_FuncionarioValidacion_UnicoTipo
-BEFORE INSERT ON Funcionario_Validacion
-FOR EACH ROW
-BEGIN
-    IF EXISTS (
-        SELECT 1
-        FROM Usuario_General
-        WHERE PaisDoc = NEW.PaisDoc
-          AND TipoDoc = NEW.TipoDoc
-          AND NumeroDoc = NEW.NumeroDoc
-    ) OR EXISTS (
-        SELECT 1
-        FROM Administrador_Sede
-        WHERE PaisDoc = NEW.PaisDoc
-          AND TipoDoc = NEW.TipoDoc
-          AND NumeroDoc = NEW.NumeroDoc
-    ) THEN
-        SIGNAL SQLSTATE '45000'
-            SET MESSAGE_TEXT = 'El usuario ya tiene otro tipo asignado';
-    END IF;
-END//
-
-DELIMITER ;

@@ -46,6 +46,12 @@ export function getSectores(idEvento) {
   return fetchJson(`/api/eventos/${idEvento}/sectores`);
 }
 
+export function getCapacidadesSectores(estadioId) {
+  return fetchJson(`/api/sectores?estadioId=${estadioId}`);
+}
+
+
+
 export function habilitarSector(data) {
   return fetchJson('/api/SeHablita', {
     method: 'POST',
@@ -60,6 +66,16 @@ export function habilitarSector(data) {
 
 export function deshabilitarSector(data) {
   return fetchJson('/api/SeHablita', {
+    method: 'DELETE',
+    params: {
+      IdEvento: data.idEvento,
+      Tipo: data.tipo,
+    },
+  });
+}
+
+export function deshabilitarSectorForzar(data) {
+  return fetchJson('/api/SeHablita/forzar', {
     method: 'DELETE',
     params: {
       IdEvento: data.idEvento,
