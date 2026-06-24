@@ -51,5 +51,11 @@ export async function fetchJson(url, options = {}) {
 
   const text = await response.text();
   if (!text) return null;
-  return JSON.parse(text);
+
+  const contentType = response.headers.get('content-type') || '';
+  if (contentType.includes('application/json')) {
+    return JSON.parse(text);
+  }
+
+  return text;
 }
