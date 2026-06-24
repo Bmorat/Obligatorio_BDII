@@ -50,6 +50,19 @@ export default function UserDashboard({ session, onLogout }) {
     cargarDatos();
   }, [cargarDatos]);
 
+  useEffect(() => {
+    const interval = setInterval(async () => {
+      try {
+        const entradasActualizadas = await usuarioService.getEntradas(session);
+        setEntradas(entradasActualizadas);
+      } catch {
+        // polling silencioso, no interrumpe
+      }
+    }, 30000);
+
+    return () => clearInterval(interval);
+  }, [session]);
+
   const transferenciasPendientes = useMemo(
     () => transferencias.filter((item) => item.estadoTransferencia === 'Pendiente').length,
     [transferencias]
