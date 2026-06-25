@@ -18,7 +18,7 @@ public class seHablitaService {
     }
 
     public boolean setSeHablitado(Integer IdEvento, SectorTipo Tipo, Integer Precio, Integer CapacidadMax) {
-        Integer IdEstadio = jdbcTemplate.queryForObject("select IdEstadio from Evento where Id = ?", Integer.class, IdEvento);
+        Integer IdEstadio = jdbcTemplate.queryForObject("select IdEstadio from Evento where IdEvento = ?", Integer.class, IdEvento);
         String sql = "INSERT INTO Se_habilita (IdEvento, IdEstadio, Tipo, Precio, CapacidadHabilitada) VALUES (?, ?, ?, ?, ?)";
         jdbcTemplate.update(sql, IdEvento, IdEstadio, Tipo.name(), Precio, CapacidadMax);
         return true; 
@@ -30,7 +30,7 @@ public class seHablitaService {
     }
 
     public boolean forceDeleteSeHablitado(Integer IdEvento, SectorTipo Tipo) {
-        Integer IdEstadio = jdbcTemplate.queryForObject("SELECT IdEstadio FROM Evento WHERE Id = ?", Integer.class, IdEvento);
+        Integer IdEstadio = jdbcTemplate.queryForObject("SELECT IdEstadio FROM Evento WHERE IdEvento = ?", Integer.class, IdEvento);
 
         jdbcTemplate.update("DELETE FROM Asignado_a WHERE IdEvento = ? AND Tipo = ?",
                 IdEvento, Tipo.name());

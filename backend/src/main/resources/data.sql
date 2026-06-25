@@ -89,7 +89,7 @@ INSERT IGNORE INTO Estadio (Id, Nombre, Ubicacion, PaisDocAdmin, TipoDocAdmin, N
 (5, 'Jardines del Hipódromo',    'Montevideo', 'URY', 'CI', '45678901');
 
 -- Sector
-INSERT IGNORE INTO Sector (IdEstadio, Tipo, Capacidad) VALUES
+INSERT IGNORE INTO Sector (IdEstadio, TipoSector, Capacidad) VALUES
 (1, 'A', 15000), (1, 'B', 8000), (1, 'C', 500),
 (2, 'A', 12000), (2, 'B', 6000), (2, 'C', 400),
 (3, 'A', 8000),  (3, 'B', 4000), (3, 'C', 300),
@@ -99,7 +99,7 @@ INSERT IGNORE INTO Sector (IdEstadio, Tipo, Capacidad) VALUES
 (4, 'D', 150),  (5, 'D', 180);
 
 -- Evento
-INSERT IGNORE INTO Evento (Id, Fecha, Hora, IdEstadio) VALUES
+INSERT IGNORE INTO Evento (IdEvento, Fecha, Hora, IdEstadio) VALUES
 (1, '2024-06-01', '15:00:00', 1),
 (2, '2024-06-08', '17:00:00', 2),
 (3, '2024-06-15', '15:00:00', 1),

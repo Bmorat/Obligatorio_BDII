@@ -44,9 +44,9 @@ public class EstadioService {
      * @return Lista de eventos de un determinado estadio.
      */
     public List<Evento> obtenerEventoPorEstadio(String idEstadio) {
-        String sql = "SELECT ev.Id, ev.Fecha, ev.Hora, ev.IdEstadio FROM Evento ev WHERE ev.IdEstadio = ?";
+        String sql = "SELECT ev.IdEvento, ev.Fecha, ev.Hora, ev.IdEstadio FROM Evento ev WHERE ev.IdEstadio = ?";
         return jdbcTemplate.query(sql, (rs, rowNum) -> new Evento(
-                rs.getInt("Id"),
+                rs.getInt("IdEvento"),
                 rs.getDate("Fecha").toLocalDate(),
                 rs.getTime("Hora").toLocalTime(),
                 rs.getInt("IdEstadio")), idEstadio);

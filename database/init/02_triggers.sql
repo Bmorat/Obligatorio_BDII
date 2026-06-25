@@ -97,7 +97,7 @@ END//
 CREATE PROCEDURE sp_check_capacidad(IN p_idestadio INT, IN p_tipo VARCHAR(1), IN p_capacidad INT)
 BEGIN
   DECLARE cap INT;
-  SELECT Capacidad INTO cap FROM Sector WHERE IdEstadio = p_idestadio AND Tipo = p_tipo;
+  SELECT Capacidad INTO cap FROM Sector WHERE IdEstadio = p_idestadio AND TipoSector = p_tipo;
   IF p_capacidad > cap THEN
     SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'CapacidadHabilitada no puede superar la Capacidad del sector';
   END IF;
@@ -107,7 +107,7 @@ END//
 CREATE PROCEDURE sp_check_estadio(IN p_idevento INT, IN p_idestadio INT)
 BEGIN
   DECLARE evEstadio INT;
-  SELECT IdEstadio INTO evEstadio FROM Evento WHERE Id = p_idevento;
+  SELECT IdEstadio INTO evEstadio FROM Evento WHERE IdEvento = p_idevento;
   IF evEstadio != p_idestadio THEN
     SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'El sector debe pertenecer al estadio del evento';
   END IF;
@@ -135,7 +135,7 @@ BEGIN
   SELECT COUNT(*) INTO conflict FROM Evento
     WHERE IdEstadio = p_idestadio
       AND Fecha = p_fecha
-      AND (p_id IS NULL OR Id != p_id)
+      AND (p_id IS NULL OR IdEvento != p_id)
       AND ABS(TIMESTAMPDIFF(MINUTE, Hora, p_hora)) < 90;
   IF conflict > 0 THEN
     SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Ya existe un evento en este estadio con menos de 90 min de diferencia';
@@ -237,7 +237,7 @@ CREATE TRIGGER TRG_Evento_CheckHorario_Update
 BEFORE UPDATE ON Evento
 FOR EACH ROW
 BEGIN
-  CALL sp_check_horario(NEW.Id, NEW.Fecha, NEW.Hora, NEW.IdEstadio);
+  CALL sp_check_horario(NEW.IdEvento, NEW.Fecha, NEW.Hora, NEW.IdEstadio);
 END//
 
 -- 6h. Un equipo no puede participar en dos eventos el mismo día
@@ -248,10 +248,10 @@ BEGIN
   DECLARE conflict INT;
   SELECT COUNT(*) INTO conflict
   FROM Juega j
-  INNER JOIN Evento e ON j.IdEvento = e.Id
+  INNER JOIN Evento e ON j.IdEvento = e.IdEvento
   WHERE j.IdEquipo = NEW.IdEquipo
     AND j.IdEvento != NEW.IdEvento
-    AND e.Fecha = (SELECT Fecha FROM Evento WHERE Id = NEW.IdEvento);
+    AND e.Fecha = (SELECT Fecha FROM Evento WHERE IdEvento = NEW.IdEvento);
   IF conflict > 0 THEN
     SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'El equipo ya participa en otro evento en esta fecha';
   END IF;
@@ -264,10 +264,10 @@ BEGIN
   DECLARE conflict INT;
   SELECT COUNT(*) INTO conflict
   FROM Juega j
-  INNER JOIN Evento e ON j.IdEvento = e.Id
+  INNER JOIN Evento e ON j.IdEvento = e.IdEvento
   WHERE j.IdEquipo = NEW.IdEquipo
     AND j.IdEvento != NEW.IdEvento
-    AND e.Fecha = (SELECT Fecha FROM Evento WHERE Id = NEW.IdEvento);
+    AND e.Fecha = (SELECT Fecha FROM Evento WHERE IdEvento = NEW.IdEvento);
   IF conflict > 0 THEN
     SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'El equipo ya participa en otro evento en esta fecha';
   END IF;

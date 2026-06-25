@@ -86,18 +86,18 @@ CREATE TABLE Estadio (
 
 CREATE TABLE Sector (
     IdEstadio   INT         NOT NULL,
-    Tipo        VARCHAR(1)  NOT NULL CHECK (Tipo IN ('A','B','C','D')),
+    TipoSector  VARCHAR(1)  NOT NULL CHECK (TipoSector IN ('A','B','C','D')),
     Capacidad   INT         NOT NULL,
-    CONSTRAINT PK_Sector PRIMARY KEY (IdEstadio, Tipo),
+    CONSTRAINT PK_Sector PRIMARY KEY (IdEstadio, TipoSector),
     CONSTRAINT FK_Sector_Estadio FOREIGN KEY (IdEstadio) REFERENCES Estadio(Id)
 );
 
 CREATE TABLE Evento (
-    Id             INT         NOT NULL AUTO_INCREMENT,
+    IdEvento       INT         NOT NULL AUTO_INCREMENT,
     Fecha          DATE        NOT NULL,
     Hora           TIME        NOT NULL,
     IdEstadio      INT         NOT NULL,
-    CONSTRAINT PK_Evento PRIMARY KEY (Id),
+    CONSTRAINT PK_Evento PRIMARY KEY (IdEvento),
     CONSTRAINT FK_Evento_Estadio FOREIGN KEY (IdEstadio) REFERENCES Estadio(Id)
 );
 
@@ -112,7 +112,7 @@ CREATE TABLE Juega (
     IdEquipo INT         NOT NULL,
     Rol      VARCHAR(10) NOT NULL,
     CONSTRAINT PK_Juega PRIMARY KEY (IdEvento, IdEquipo),
-    CONSTRAINT FK_Juega_Evento FOREIGN KEY (IdEvento) REFERENCES Evento(Id),
+    CONSTRAINT FK_Juega_Evento FOREIGN KEY (IdEvento) REFERENCES Evento(IdEvento),
     CONSTRAINT FK_Juega_Equipo FOREIGN KEY (IdEquipo) REFERENCES Equipo(Id)
 );
 
@@ -123,8 +123,8 @@ CREATE TABLE Se_habilita (
     Precio              DECIMAL(10,2)  NOT NULL,
     CapacidadHabilitada INT            NOT NULL,
     CONSTRAINT PK_SeHabilita PRIMARY KEY (IdEvento, IdEstadio, Tipo),
-    CONSTRAINT FK_SeHabilita_Evento FOREIGN KEY (IdEvento) REFERENCES Evento(Id),
-    CONSTRAINT FK_SeHabilita_Sector FOREIGN KEY (IdEstadio, Tipo) REFERENCES Sector(IdEstadio, Tipo)
+    CONSTRAINT FK_SeHabilita_Evento FOREIGN KEY (IdEvento) REFERENCES Evento(IdEvento),
+    CONSTRAINT FK_SeHabilita_Sector FOREIGN KEY (IdEstadio, Tipo) REFERENCES Sector(IdEstadio, TipoSector)
 );
 
 CREATE TABLE Comision (

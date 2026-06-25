@@ -22,19 +22,19 @@ public class ReporteService {
     public List<EventoReporteDTO> eventosMasVendidos() {
         String sql = """
                 SELECT
-                    ev.Id          AS idEvento,
+                    ev.IdEvento    AS idEvento,
                     ev.Fecha       AS fecha,
                     ev.Hora        AS hora,
                     COUNT(en.IdEntrada) AS totalEntradas,
                     SUM(sh.Precio * (1 + co.Porcentaje / 100)) AS totalRemunerado
                 FROM Evento ev
-                JOIN Entrada en ON en.IdEvento = ev.Id
+                JOIN Entrada en ON en.IdEvento = ev.IdEvento
                 JOIN Se_habilita sh ON sh.IdEvento = en.IdEvento
                                    AND sh.IdEstadio = en.IdEstadio
                                    AND sh.Tipo = en.Tipo
                 JOIN Compra c ON c.Id = en.IdCompra
                 JOIN Comision co ON co.IdComision = c.IdComision
-                GROUP BY ev.Id
+                GROUP BY ev.IdEvento
                 ORDER BY totalEntradas DESC
                 """;
 

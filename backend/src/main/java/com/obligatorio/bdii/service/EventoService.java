@@ -26,10 +26,10 @@ public class EventoService {
     }
     
     public List<Evento> obtenerEventos() {
-        String sql = "SELECT Id, Fecha, Hora, IdEstadio FROM Evento";
+        String sql = "SELECT IdEvento, Fecha, Hora, IdEstadio FROM Evento";
         return jdbcTemplate.query(sql, (rs, rowNum) -> {
                 Evento e = new Evento();
-                e.setId(rs.getInt("Id"));
+                e.setId(rs.getInt("IdEvento"));
                 e.setFecha(rs.getDate("Fecha").toLocalDate()); 
                 e.setHora(rs.getTime("Hora").toLocalTime());
                 e.setIdEstadio(rs.getInt("IdEstadio"));
@@ -62,7 +62,7 @@ public class EventoService {
     public List<SeHabilita> obtenerSectoresPorEvento(Integer id){
         String sql = "SELECT sh.IdEvento, sh.IdEstadio, sh.Tipo, sh.Precio, sh.CapacidadHabilitada, s.Capacidad as CapacidadMaxima " +
                      "FROM Se_habilita sh " +
-                     "JOIN Sector s ON sh.IdEstadio = s.IdEstadio AND sh.Tipo = s.Tipo " +
+                      "JOIN Sector s ON sh.IdEstadio = s.IdEstadio AND sh.Tipo = s.TipoSector " +
                      "WHERE sh.IdEvento = ?";
         return jdbcTemplate.query(sql, (rs, rowNum) -> {
                SeHabilita sh = new SeHabilita();
@@ -77,11 +77,11 @@ public class EventoService {
     }
 
     public List<Sector> obtenerSectoresPorEstadio(Integer idEstadio){
-        String sql = "SELECT IdEstadio, Tipo, Capacidad FROM Sector WHERE IdEstadio = ?";
+        String sql = "SELECT IdEstadio, TipoSector, Capacidad FROM Sector WHERE IdEstadio = ?";
         return jdbcTemplate.query(sql, (rs, rowNum) -> {
             Sector s = new Sector();
             s.setIdEstadio(rs.getInt("IdEstadio"));
-            s.setTipo(SectorTipo.valueOf(rs.getString("Tipo")));
+            s.setTipo(SectorTipo.valueOf(rs.getString("TipoSector")));
             s.setCapacidad(rs.getInt("Capacidad"));
             return s;
         }, idEstadio);
@@ -93,14 +93,14 @@ public class EventoService {
         jdbcTemplate.update("DELETE FROM Entrada WHERE IdEvento = ?", idEvento);
         jdbcTemplate.update("DELETE FROM Se_habilita WHERE IdEvento = ?", idEvento);
         jdbcTemplate.update("DELETE FROM Juega WHERE IdEvento = ?", idEvento);
-        jdbcTemplate.update("DELETE FROM Evento WHERE Id = ?", idEvento);
+        jdbcTemplate.update("DELETE FROM Evento WHERE IdEvento = ?", idEvento);
         return true;
     }
 
     public boolean updateEvento(Integer IdEvento, LocalDate Fecha, LocalTime Hora,
                                 Integer IdEstadio,
                                 Integer idEquipoLocal, Integer idEquipoVisitante) {
-        String sql = "UPDATE Evento SET Fecha = ?, Hora = ?, IdEstadio = ? WHERE Id = ?";
+        String sql = "UPDATE Evento SET Fecha = ?, Hora = ?, IdEstadio = ? WHERE IdEvento = ?";
         jdbcTemplate.update(sql, Fecha, Hora, IdEstadio, IdEvento);
 
         if (idEquipoLocal != null && idEquipoVisitante != null) {
