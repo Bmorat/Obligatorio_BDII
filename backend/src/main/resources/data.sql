@@ -57,11 +57,11 @@ INSERT IGNORE INTO Telefono (PaisDoc, TipoDoc, NumeroDoc, NumTelefono) VALUES
 
 -- Equipo
 INSERT IGNORE INTO Equipo (Id, NombreDeEquipo) VALUES
-(1, 'Nacional'),
-(2, 'Peñarol'),
-(3, 'Defensor Sporting'),
-(4, 'Danubio'),
-(5, 'Montevideo Wanderers');
+(1, 'Argentina'),
+(2, 'Brasil'),
+(3, 'Francia'),
+(4, 'Alemania'),
+(5, 'Inglaterra');
 
 -- Administrador_Sede
 INSERT IGNORE INTO Administrador_Sede (PaisDoc, TipoDoc, NumeroDoc, FechaAsignacion) VALUES
@@ -94,11 +94,11 @@ INSERT IGNORE INTO Dispositivo_Validacion (IdDispositivo, PaisDocFunc, TipoDocFu
 
 -- Estadio
 INSERT IGNORE INTO Estadio (Id, Nombre, Ubicacion, PaisDocAdmin, TipoDocAdmin, NumeroDocAdmin) VALUES
-(1, 'Estadio Centenario',        'Montevideo', 'URY', 'CI', '23456789'),
-(2, 'Estadio Campeón del Siglo', 'Montevideo', 'URY', 'CI', '23456789'),
-(3, 'Gran Parque Central',       'Montevideo', 'URY', 'CI', '67890123'),
-(4, 'Estadio Luis Tróccoli',     'Montevideo', 'URY', 'CI', '45678901'),
-(5, 'Jardines del Hipódromo',    'Montevideo', 'URY', 'CI', '45678901');
+(1, 'Maracaná',             'Río de Janeiro', 'URY', 'CI', '23456789'),
+(2, 'Estadio Lusail',       'Lusail',         'URY', 'CI', '23456789'),
+(3, 'Signal Iduna Park',    'Dortmund',       'URY', 'CI', '67890123'),
+(4, 'Allianz Arena',        'Múnich',         'URY', 'CI', '45678901'),
+(5, 'Wembley',              'Londres',        'URY', 'CI', '45678901');
 
 -- Sector
 INSERT IGNORE INTO Sector (IdEstadio, Tipo, Capacidad) VALUES
