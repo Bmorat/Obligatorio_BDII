@@ -18,20 +18,26 @@ INSERT IGNORE INTO Usuario (PaisDoc, TipoDoc, NumeroDoc, Correo, Dir_Calle, Dir_
 ('URY', 'CI', '78901234', 'miguel.silva@email.com',      'Av. 8 de Octubre','234',  '11000'),
 ('URY', 'CI', '89012345', 'sofia.ramos@email.com',       'Av. Brasil',      '567',  '11200'),
 ('URY', 'CI', '90123456', 'diego.torres@email.com',      'Rambla',          '890',  '11400'),
-('URY', 'CI', '01234567', 'valentina.herrera@email.com', 'Colonia',         '123',  '11500');
+('URY', 'CI', '01234567', 'valentina.herrera@email.com', 'Colonia',         '123',  '11500'),
+('URY', 'CI', '11111111', 'manu.perez@email.com',        'Av. General Flores','100', '11000'),
+('URY', 'CI', '22222222', 'diego.perez@email.com',       'Av. General Flores','200', '11000'),
+('URY', 'CI', '33333333', 'emiliano.perez@email.com',    'Av. General Flores','300', '11000');
 
 -- CredencialUsuario
 INSERT IGNORE INTO CredencialUsuario (PaisDoc, TipoDoc, NumeroDoc, PasswordHash) VALUES
-('URY', 'CI', '12345678', '$2y$10$skeckeaqfHRroPaN0exaFekI4S56H1O44ICh/rv36s.ACa8u84Rxy'),
-('URY', 'CI', '23456789', '$2y$10$skeckeaqfHRroPaN0exaFekI4S56H1O44ICh/rv36s.ACa8u84Rxy'),
-('URY', 'CI', '34567890', '$2y$10$skeckeaqfHRroPaN0exaFekI4S56H1O44ICh/rv36s.ACa8u84Rxy'),
-('URY', 'CI', '45678901', '$2y$10$skeckeaqfHRroPaN0exaFekI4S56H1O44ICh/rv36s.ACa8u84Rxy'),
-('URY', 'CI', '56789012', '$2y$10$skeckeaqfHRroPaN0exaFekI4S56H1O44ICh/rv36s.ACa8u84Rxy'),
-('URY', 'CI', '67890123', '$2y$10$skeckeaqfHRroPaN0exaFekI4S56H1O44ICh/rv36s.ACa8u84Rxy'),
-('URY', 'CI', '78901234', '$2y$10$skeckeaqfHRroPaN0exaFekI4S56H1O44ICh/rv36s.ACa8u84Rxy'),
-('URY', 'CI', '89012345', '$2y$10$skeckeaqfHRroPaN0exaFekI4S56H1O44ICh/rv36s.ACa8u84Rxy'),
-('URY', 'CI', '90123456', '$2y$10$skeckeaqfHRroPaN0exaFekI4S56H1O44ICh/rv36s.ACa8u84Rxy'),
-('URY', 'CI', '01234567', '$2y$10$skeckeaqfHRroPaN0exaFekI4S56H1O44ICh/rv36s.ACa8u84Rxy');
+('URY', 'CI', '12345678', '$2a$10$skeckeaqfHRroPaN0exaFekI4S56H1O44ICh/rv36s.ACa8u84Rxy'),
+('URY', 'CI', '23456789', '$2a$10$skeckeaqfHRroPaN0exaFekI4S56H1O44ICh/rv36s.ACa8u84Rxy'),
+('URY', 'CI', '34567890', '$2a$10$skeckeaqfHRroPaN0exaFekI4S56H1O44ICh/rv36s.ACa8u84Rxy'),
+('URY', 'CI', '45678901', '$2a$10$skeckeaqfHRroPaN0exaFekI4S56H1O44ICh/rv36s.ACa8u84Rxy'),
+('URY', 'CI', '56789012', '$2a$10$skeckeaqfHRroPaN0exaFekI4S56H1O44ICh/rv36s.ACa8u84Rxy'),
+('URY', 'CI', '67890123', '$2a$10$skeckeaqfHRroPaN0exaFekI4S56H1O44ICh/rv36s.ACa8u84Rxy'),
+('URY', 'CI', '78901234', '$2a$10$skeckeaqfHRroPaN0exaFekI4S56H1O44ICh/rv36s.ACa8u84Rxy'),
+('URY', 'CI', '89012345', '$2a$10$skeckeaqfHRroPaN0exaFekI4S56H1O44ICh/rv36s.ACa8u84Rxy'),
+('URY', 'CI', '90123456', '$2a$10$skeckeaqfHRroPaN0exaFekI4S56H1O44ICh/rv36s.ACa8u84Rxy'),
+('URY', 'CI', '01234567', '$2a$10$skeckeaqfHRroPaN0exaFekI4S56H1O44ICh/rv36s.ACa8u84Rxy'),
+('URY', 'CI', '11111111', '$2a$10$skeckeaqfHRroPaN0exaFekI4S56H1O44ICh/rv36s.ACa8u84Rxy'),
+('URY', 'CI', '22222222', '$2a$10$skeckeaqfHRroPaN0exaFekI4S56H1O44ICh/rv36s.ACa8u84Rxy'),
+('URY', 'CI', '33333333', '$2a$10$skeckeaqfHRroPaN0exaFekI4S56H1O44ICh/rv36s.ACa8u84Rxy');
 
 -- Telefono
 INSERT IGNORE INTO Telefono (PaisDoc, TipoDoc, NumeroDoc, NumTelefono) VALUES
@@ -44,15 +50,18 @@ INSERT IGNORE INTO Telefono (PaisDoc, TipoDoc, NumeroDoc, NumTelefono) VALUES
 ('URY', 'CI', '78901234', '+59897890123'),
 ('URY', 'CI', '89012345', '+59898901234'),
 ('URY', 'CI', '90123456', '+59899012345'),
-('URY', 'CI', '01234567', '+59891123456');
+('URY', 'CI', '01234567', '+59891123456'),
+('URY', 'CI', '11111111', '+59891111111'),
+('URY', 'CI', '22222222', '+59892222222'),
+('URY', 'CI', '33333333', '+59893333333');
 
 -- Equipo
 INSERT IGNORE INTO Equipo (Id, NombreDeEquipo) VALUES
-(1, 'Nacional'),
-(2, 'Peñarol'),
-(3, 'Defensor Sporting'),
-(4, 'Danubio'),
-(5, 'Montevideo Wanderers');
+(1, 'Argentina'),
+(2, 'Brasil'),
+(3, 'Francia'),
+(4, 'Alemania'),
+(5, 'Inglaterra');
 
 -- Administrador_Sede
 INSERT IGNORE INTO Administrador_Sede (PaisDoc, TipoDoc, NumeroDoc, FechaAsignacion) VALUES
@@ -65,7 +74,10 @@ INSERT IGNORE INTO Usuario_General (PaisDoc, TipoDoc, NumeroDoc, FechaRegistro, 
 ('URY', 'CI', '12345678', '2024-01-15', TRUE),
 ('URY', 'CI', '34567890', '2024-02-20', TRUE),
 ('URY', 'CI', '56789012', '2024-03-10', FALSE),
-('URY', 'CI', '78901234', '2024-04-05', TRUE);
+('URY', 'CI', '78901234', '2024-04-05', TRUE),
+('URY', 'CI', '11111111', '2026-06-26', TRUE),
+('URY', 'CI', '22222222', '2026-06-26', TRUE),
+('URY', 'CI', '33333333', '2026-06-26', TRUE);
 
 -- Funcionario_Validacion
 INSERT IGNORE INTO Funcionario_Validacion (PaisDoc, TipoDoc, NumeroDoc, NumeroLegajo) VALUES
@@ -82,11 +94,11 @@ INSERT IGNORE INTO Dispositivo_Validacion (IdDispositivo, PaisDocFunc, TipoDocFu
 
 -- Estadio
 INSERT IGNORE INTO Estadio (Id, Nombre, Ubicacion, PaisDocAdmin, TipoDocAdmin, NumeroDocAdmin) VALUES
-(1, 'Estadio Centenario',        'Montevideo', 'URY', 'CI', '23456789'),
-(2, 'Estadio Campeón del Siglo', 'Montevideo', 'URY', 'CI', '23456789'),
-(3, 'Gran Parque Central',       'Montevideo', 'URY', 'CI', '67890123'),
-(4, 'Estadio Luis Tróccoli',     'Montevideo', 'URY', 'CI', '45678901'),
-(5, 'Jardines del Hipódromo',    'Montevideo', 'URY', 'CI', '45678901');
+(1, 'Maracaná',             'Río de Janeiro', 'URY', 'CI', '23456789'),
+(2, 'Estadio Lusail',       'Lusail',         'URY', 'CI', '23456789'),
+(3, 'Signal Iduna Park',    'Dortmund',       'URY', 'CI', '67890123'),
+(4, 'Allianz Arena',        'Múnich',         'URY', 'CI', '45678901'),
+(5, 'Wembley',              'Londres',        'URY', 'CI', '45678901');
 
 -- Sector
 INSERT IGNORE INTO Sector (IdEstadio, Tipo, Capacidad) VALUES
@@ -154,7 +166,7 @@ INSERT IGNORE INTO Compra (Id, Estado, Fecha, MontoTotal, PaisDocUsuario, TipoDo
 INSERT IGNORE INTO Entrada (IdEntrada, Estado, NumeroVecesTransferida, IdCompra, IdEvento, IdEstadio, Tipo, IdQR) VALUES
 (1,  'Activa',      0, 1, 1, 1, 'A', 'QR-001'),
 (2,  'Activa',      0, 1, 1, 1, 'A', 'QR-002'),
-(3,  'Transferida', 1, 1, 1, 1, 'A', 'QR-003'),
+(3,  'Activa',      1, 1, 1, 1, 'A', 'QR-003'),
 (4,  'Activa',      0, 2, 2, 2, 'B',  'QR-004'),
 (5,  'Usada',       0, 2, 2, 2, 'B',  'QR-005'),
 (6,  'Activa',      0, 3, 1, 1, 'A', 'QR-006'),

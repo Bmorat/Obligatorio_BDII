@@ -68,7 +68,7 @@ public class TransferenciaService {
             "UPDATE Transferencia SET EstadoTransferencia = 'Aceptada' WHERE idTransferencia = ?", id);
         
         //Actualizar numero de veces transferida a la entrada
-        jdbcTemplate.update("UPDATE Entrada SET Estado = 'Transferida', NumeroVecesTransferida = NumeroVecesTransferida + 1 WHERE idEntrada = ?",idEntrada);
+        jdbcTemplate.update("UPDATE Entrada SET NumeroVecesTransferida = NumeroVecesTransferida + 1 WHERE idEntrada = ?",idEntrada);
 
         return ResponseEntity.ok("Transferencia aceptada");
     }
