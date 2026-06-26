@@ -3,7 +3,7 @@ import { setSession } from '../services/api';
 
 export default function LoginView({ onLogin, onNavigate }) {
   const [form, setForm] = useState({
-    correo: 'maria.garcia@email.com',
+    correo: 'juan.perez@email.com',
     password: 'password123',
   });
   const [status, setStatus] = useState('idle');

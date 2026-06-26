@@ -1,6 +1,5 @@
 
 
--- 1a. Usuario_General.EstadoVerificacion como BOOLEAN 
 DELIMITER //
 CREATE PROCEDURE sp_migrar_estado_verificacion()
 BEGIN
