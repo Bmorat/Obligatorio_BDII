@@ -154,7 +154,7 @@ INSERT IGNORE INTO Compra (Id, Estado, Fecha, MontoTotal, PaisDocUsuario, TipoDo
 INSERT IGNORE INTO Entrada (IdEntrada, Estado, NumeroVecesTransferida, IdCompra, IdEvento, IdEstadio, Tipo, IdQR) VALUES
 (1,  'Activa',      0, 1, 1, 1, 'A', 'QR-001'),
 (2,  'Activa',      0, 1, 1, 1, 'A', 'QR-002'),
-(3,  'Transferida', 1, 1, 1, 1, 'A', 'QR-003'),
+(3,  'Activa',      1, 1, 1, 1, 'A', 'QR-003'),
 (4,  'Activa',      0, 2, 2, 2, 'B',  'QR-004'),
 (5,  'Usada',       0, 2, 2, 2, 'B',  'QR-005'),
 (6,  'Activa',      0, 3, 1, 1, 'A', 'QR-006'),

@@ -26,7 +26,7 @@ public class EntradaService {
         String sql = "SELECT e.IdEntrada, e.Estado, e.NumeroVecesTransferida, e.IdCompra, e.IdEvento, e.IdEstadio, e.Tipo, e.IdQR " +
              "FROM Entrada e JOIN Compra c ON e.IdCompra = c.Id " +
              "WHERE c.PaisDocUsuario = ? AND c.TipoDocUsuario = ? AND c.NumeroDocUsuario = ? " +
-             "AND e.Estado != 'Transferida' " +
+             "AND e.IdEntrada NOT IN (SELECT t.IdEntrada FROM Transferencia t WHERE t.EstadoTransferencia = 'Aceptada') " +
              "UNION " +
              "SELECT e.IdEntrada, e.Estado, e.NumeroVecesTransferida, e.IdCompra, e.IdEvento, e.IdEstadio, e.Tipo, e.IdQR " +
              "FROM Entrada e JOIN Transferencia t ON e.IdEntrada = t.IdEntrada " +
@@ -102,7 +102,7 @@ public class EntradaService {
 
         // Marcar la entrada como consumida y registrar la auditoría
         jdbcTemplate.update(
-            "UPDATE Entrada SET Estado = 'Consumida', IdDispositivoValidacion = ?, CodigoAceptado = ?, FechaHoraValidacion = NOW() WHERE IdEntrada = ?",
+            "UPDATE Entrada SET Estado = 'Usada', IdDispositivoValidacion = ?, CodigoAceptado = ?, FechaHoraValidacion = NOW() WHERE IdEntrada = ?",
             idDispositivo,
             request.IdQR(),
             entrada.getIdEntrada()

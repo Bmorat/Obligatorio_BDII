@@ -29,7 +29,7 @@ ALTER TABLE Compra ADD CONSTRAINT CK_Compra_Estado
   CHECK (Estado IN ('Pendiente', 'Completada', 'Cancelada', 'Confirmada'));
 
 ALTER TABLE Entrada ADD CONSTRAINT CK_Entrada_Estado
-  CHECK (Estado IN ('Activa', 'Transferida', 'Usada', 'Cancelada'));
+  CHECK (Estado IN ('Activa', 'Usada', 'Cancelada'));
 
 ALTER TABLE Transferencia ADD CONSTRAINT CK_Transferencia_Estado
   CHECK (EstadoTransferencia IN ('Pendiente', 'Aceptada', 'Rechazada'));
