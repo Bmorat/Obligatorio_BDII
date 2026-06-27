@@ -18,6 +18,6 @@ cd frontend && npm install && npm run dev
 
 | Rol           | Email                  | Contraseña  |
 | ------------- | ---------------------- | ----------- |
-| Admin de sede | juan.perez@email.com   | password123 |
+| Admin de sede | maria.garcia@email.com | password123 |
 | Funcionario   | sofia.ramos@email.com  | password123 |
-| Usuario       | maria.garcia@email.com | password123 |
+| Usuario       | juan.perez@email.com   | password123 |
