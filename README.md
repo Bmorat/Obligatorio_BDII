@@ -1,46 +1,23 @@
-# Obligatorio_BDII
-
-Proyecto para el obligatorio de BDII.
-
-## Tecnologias
+# Obligatorio BDII — Sistema de Entradas para Eventos Deportivos
 
 - Frontend: React, Vite y CSS.
 - Backend: Java 21, Spring Boot y JDBC.
 
-## Estructura
-
-```text
-backend/
-  src/main/java/com/obligatorio/bdii/
-  src/main/resources/
-frontend/
-  src/
-  public/
-```
-
-## Backend
-
-Desde la carpeta `backend`:
-
 ```bash
-mvn spring-boot:run
+# 1. Levantar MySQL
+docker compose up -d
+
+# 2. Backend (puerto 8080)
+cd backend && mvn spring-boot:run
+
+# 3. Frontend (puerto 5175)
+cd frontend && npm install && npm run dev
 ```
 
-El backend levanta por defecto en `http://localhost:8080`.
+## Credenciales de prueba
 
-Endpoint inicial:
-
-```text
-GET /api/health
-
-
-## Frontend
-
-Desde la carpeta `frontend`:
-
-```bash
-npm install
-npm run dev
-```
-
-El frontend levanta por defecto en `http://localhost:5173`.
+| Rol           | Email                  | Contraseña  |
+| ------------- | ---------------------- | ----------- |
+| Admin de sede | juan.perez@email.com   | password123 |
+| Funcionario   | sofia.ramos@email.com  | password123 |
+| Usuario       | maria.garcia@email.com | password123 |
